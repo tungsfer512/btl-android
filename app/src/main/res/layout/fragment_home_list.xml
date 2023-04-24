@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBackground"
+        android:orientation="vertical">
+<!--        Page Title-->
+        <LinearLayout
+            android:id="@+id/pageHomeListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="TTT Stylist" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/grey"
+                android:text="Welcome to Stylist"/>
+        </LinearLayout>
+<!--        End Page Title-->
+<!--        Search View-->
+        <LinearLayout
+            android:background="@color/backButton"
+            android:id="@+id/searchHomList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <SearchView
+                android:id="@+id/search_view"
+                android:background="@color/white"
+                android:queryHint="Search..."
+                android:iconifiedByDefault="false"
+                android:layout_width="0dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="7"
+                android:layout_height="40dp"/>
+            <ImageView
+                android:id="@+id/image_view"
+                android:src="@drawable/ic_image_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"/>
+        </LinearLayout>
+<!--        End Search View-->
+<!--        Category-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/primaryBackground"
+            android:divider="@drawable/empty_tall_divider"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:showDividers="middle"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Brand"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View All"
+                    android:textSize="14dp"
+                    android:textColor="@color/grey" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:fillViewport="true"-->
+<!--            android:measureAllChildren="false"-->
+<!--            android:scrollbars="none" >-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rCategories"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+<!--        </HorizontalScrollView>-->
+<!--        End Category-->
+<!--        Product List-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/primaryBackground"
+            android:divider="@drawable/empty_tall_divider"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:showDividers="middle"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View All"
+                    android:textSize="14dp"
+                    android:textColor="@color/grey" />
+            </LinearLayout>
+        </LinearLayout>
+
+<!--        <ScrollView-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:fillViewport="true"-->
+<!--            android:measureAllChildren="false"-->
+<!--            android:scrollbars="none" >-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rProductLists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+<!--        </ScrollView>-->
+<!--        End Product List-->
+    </LinearLayout>
+
+</FrameLayout>
