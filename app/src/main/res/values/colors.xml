@@ -10,6 +10,8 @@
     <color name="grey">#8F959E</color>
     <color name="orange">#F27400</color>
 
+    <color name="inputBackground">#222E34</color>
+
     <color name="primaryBackground">#1B262C</color>
     <color name="twitterBackground">#1DA1F2</color>
     <color name="facebookBackground">#4267B2</color>
@@ -22,5 +24,7 @@
     <color name="sliderBackground">#4BC76D</color>
     <color name="checkBackground">#4AC76D</color>
     <color name="backButton">#222E34</color>
+    <color name="secondaryBackground">#222E34</color>
+    <color name="background_image_details">#F2F2F2</color>
 
 </resources>

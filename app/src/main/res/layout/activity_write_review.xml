@@ -14,114 +14,69 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         app:layout_constraintVertical_bias="0.0">
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/backButton"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:clickable="true"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:backgroundTint="@color/backButton"-->
-<!--                app:rippleColor="@color/white"-->
-<!--                app:srcCompat="@drawable/back_arrow" />-->
-
-<!--        </LinearLayout>-->
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:text="Add Review"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="40dp"
+            android:textSize="26dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.072" />
 
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
             android:gravity="center"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="Username"
-                    android:textColor="@color/grey"
-                    android:textSize="13dp"
-                    android:textStyle="italic" />
-
-                <EditText
-                    android:id="@+id/usernameText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/grey"
-                    android:hint="Enter your username"
+                    android:text="Name"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
-                    android:textSize="18dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="Password"
-                    android:textColor="@color/grey"
-                    android:textSize="13dp"
+                    android:textSize="20dp"
                     android:textStyle="italic" />
 
                 <EditText
-                    android:id="@+id/passwordText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/nameText"
+                    android:layout_width="370dp"
+                    android:layout_height="41dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/grey"
+                    android:background="@drawable/custom_edit"
                     android:ems="10"
-                    android:hint="Enter your password"
-                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:hint="Type your name"
+                    android:inputType="text"
                     android:textColor="@color/white"
                     android:textColorHint="@color/grey"
                     android:textSize="18dp" />
@@ -137,38 +92,94 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="Email"
-                    android:textColor="@color/grey"
-                    android:textSize="13dp"
+                    android:text="How was your experience ?"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
                     android:textStyle="italic" />
 
+
                 <EditText
-                    android:id="@+id/emailText"
+                    android:id="@+id/experienceText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/grey"
+
                     android:ems="10"
-                    android:hint="example@example.com"
-                    android:inputType="textEmailAddress"
+                    android:background="@drawable/custom_edit"
+                    android:hint="Describe yor experience?"
+                    android:padding="10dp"
+                    android:inputType="textMultiLine"
+                    android:lines="8"
+                    android:minLines="6"
+                    android:gravity="top|start"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"
                     android:textColor="@color/white"
                     android:textColorHint="@color/grey"
                     android:textSize="18dp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Star"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="italic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        android:text="0.0"/>
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/discreteRangeSlider"
+                    android:layout_width="281dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="10dp"
+                    android:valueFrom="0.0"
+                    android:valueTo="5.0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="11dp"
+                        android:text="5.0"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
+
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/resetPasswordButton"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:backgroundTint="@color/primaryButtonBackground"
             android:inputType="textCapSentences"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Sign Up"
+            android:text="Submit Review"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:cornerRadius="0dp"></Button>
