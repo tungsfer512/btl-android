@@ -5,10 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBackground"
-    tools:context=".SignUpActivity">
-
-
-
+    tools:context=".PaymentActivity">
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -20,37 +17,16 @@
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         app:layout_constraintVertical_bias="0.0">
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/backButton"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:clickable="true"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:backgroundTint="@color/backButton"-->
-<!--                app:rippleColor="@color/white"-->
-<!--                app:srcCompat="@drawable/back_arrow" />-->
-
-<!--        </LinearLayout>-->
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="Payment"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="40dp"
+            android:textSize="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,13 +51,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="Username"
-                    android:textColor="@color/grey"
-                    android:textSize="13dp"
-                    android:textStyle="italic" />
+                    android:text="Card Owner"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
 
                 <EditText
-                    android:id="@+id/usernameText"
+                    android:id="@+id/cardOwnerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -89,7 +64,36 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="@color/grey"
-                    android:hint="Enter your username"
+                    android:hint="Enter the name in your card"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey"
+                    android:textSize="18dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Card Number"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/cardNumberText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="Eg: 5254 7634 8734 7690"
                     android:textColor="@color/white"
                     android:textColorHint="@color/grey"
                     android:textSize="18dp" />
@@ -98,77 +102,82 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="Password"
-                    android:textColor="@color/grey"
-                    android:textSize="13dp"
-                    android:textStyle="italic" />
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="EXP"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"/>
 
-                <EditText
-                    android:id="@+id/passwordText"
-                    android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/expText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:hint="24/24"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
+                        android:textSize="18dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/grey"
-                    android:ems="10"
-                    android:hint="Enter your password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
-                    android:textSize="18dp" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="CVV"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="Email"
-                    android:textColor="@color/grey"
-                    android:textSize="13dp"
-                    android:textStyle="italic" />
-
-                <EditText
-                    android:id="@+id/emailText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/grey"
-                    android:ems="10"
-                    android:hint="example@example.com"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
-                    android:textSize="18dp" />
+                    <EditText
+                        android:id="@+id/cvvText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:hint="Your CVV"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
+                        android:textSize="18dp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/confirmPaymentButton"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:backgroundTint="@color/primaryButtonBackground"
             android:inputType="textCapSentences"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Sign Up"
+            android:text="Confirm"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:cornerRadius="0dp"></Button>

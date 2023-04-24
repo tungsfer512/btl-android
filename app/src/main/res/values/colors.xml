@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#8F959E</color>
+    <color name="orange">#F27400</color>
 
     <color name="primaryBackground">#1B262C</color>
     <color name="twitterBackground">#1DA1F2</color>
