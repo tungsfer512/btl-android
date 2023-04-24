@@ -21,5 +21,6 @@
     <color name="sliderBackground">#4BC76D</color>
     <color name="checkBackground">#4AC76D</color>
     <color name="backButton">#222E34</color>
-
+    <color name="secondaryBackground">#222E34</color>
+    <color name="background_image_details">#F2F2F2</color>
 </resources>
