@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
-public class order_successfully extends AppCompatActivity {
+public class OrderSuccessfullyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

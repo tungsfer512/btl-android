@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeProductList extends AppCompatActivity {
+public class HomeProductListActivity extends AppCompatActivity {
 
     private BottomNavigationView mbottomNavigationView;
     private ViewPager mviewPager;
@@ -45,7 +45,7 @@ public class HomeProductList extends AppCompatActivity {
                         mviewPager.setCurrentItem(0);
                         break;
                     case R.id.menuWishlist:
-                        Toast.makeText(HomeProductList.this, "menuWishlist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeProductListActivity.this, "menuWishlist", Toast.LENGTH_SHORT).show();
                         mviewPager.setCurrentItem(1);
                         break;
                     case R.id.menuOrder:

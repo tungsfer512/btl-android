@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBackground"
-    tools:context=".order">
+    tools:context=".OrderActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -393,7 +393,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Delivery Address"
+                                    android:text="Payment Method"
                                     android:textColor="@color/white">
                                 </TextView>
                             </LinearLayout>

@@ -1,5 +1,6 @@
 package fourteam.fantastic.btl.model;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import fourteam.fantastic.btl.HomeProductListActivity;
+import fourteam.fantastic.btl.ProductDetailActivity;
 import fourteam.fantastic.btl.R;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -47,6 +50,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 System.out.println("Add to WishList");
             }
         });
+
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent productDetailIntent = new Intent(view.getContext(), ProductDetailActivity.class);
+
+                productDetailIntent.putExtra("product_id", product.getId());
+
+                view.getContext().startActivity(productDetailIntent);
+            }
+        });
+
     }
 
     @Override

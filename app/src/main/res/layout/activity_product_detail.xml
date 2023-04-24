@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBackground"
-    tools:context=".product_detail">
+    tools:context=".ProductDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Side"
+                                android:text="Size"
                                 android:textColor="@color/white"
                                 android:textSize="16dp" />
 
@@ -183,7 +183,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="right"
-                                android:text="Side Guide"
+                                android:text="Size Guide"
                                 android:textColor="@color/grey" />
                         </LinearLayout>
 
@@ -283,7 +283,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Review"
+                            android:text="Reviews"
                             android:textColor="@color/white"
                             android:textSize="16dp" />
 
