@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fourteam.fantastic.btl.api.CartApi;
+import fourteam.fantastic.btl.api.UserApi;
 import fourteam.fantastic.btl.model.Cart;
 import fourteam.fantastic.btl.model.OrderAdapter;
 import retrofit2.Call;
@@ -95,9 +96,26 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent address = new Intent(OrderActivity.this, AddressActivity.class);
+
                 startActivity(address);
             }
         });
+
+        UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
+
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Gson gson = new Gson();
+                String data = gson.toJson(response);
+                System.out.println(data);
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+
         ImageButton paymentButton = findViewById(R.id.paymentButton);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
