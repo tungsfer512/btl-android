@@ -15,6 +15,10 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import fourteam.fantastic.btl.R;
+import fourteam.fantastic.btl.api.CartApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartAdapter extends BaseAdapter {
     private Context context;
@@ -87,6 +91,21 @@ public class CartAdapter extends BaseAdapter {
                 cartList.get(i).setQuantity(quantity);
                 System.out.println(cartViewHolder.quantity.getText().toString());
                 notifyDataSetChanged();
+                Integer id_cart =  (Integer) cartList.get(i).getId();
+                CartApi.retrofit.updateCart(id_cart,"increase").enqueue(new Callback<Object>() {
+
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (response.isSuccessful()){
+                            System.out.println("increase quantity success, id_cart =  " + id_cart);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
             }
         });
         cartViewHolder.down.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +120,21 @@ public class CartAdapter extends BaseAdapter {
                 cartList.get(i).setQuantity(quantity);
                 System.out.println(cartViewHolder.quantity.getText().toString());
                 notifyDataSetChanged();
+                Integer id_cart =  (Integer) cartList.get(i).getId();
+                CartApi.retrofit.updateCart(id_cart,"decrease").enqueue(new Callback<Object>() {
+
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (response.isSuccessful()){
+                            System.out.println("decrease quantity success, id_cart = " + id_cart);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
             }
         });
         cartViewHolder.delete.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +144,21 @@ public class CartAdapter extends BaseAdapter {
                 Cart cart_remove = cartList.get(i);
                 cartList.remove(i);
                 notifyDataSetChanged();
+                Integer id_cart =  (Integer) cart_remove.getId();
+                CartApi.retrofit.deleteCart(id_cart).enqueue(new Callback<Object>() {
+
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (response.code()==204){
+                            System.out.println("delete id_cart = " + id_cart);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        System.out.println(t.toString());
+                    }
+                });
             }
         });
         return view;
