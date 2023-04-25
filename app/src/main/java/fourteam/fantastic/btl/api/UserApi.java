@@ -41,6 +41,6 @@ public interface UserApi {
 
     @FormUrlEncoded
     @POST("/users/auth/register")
-    Call<Object> postRegister(@Field("username") String username, @Field("password") String password, @Field("firstname") String firstname, @Field("lastname") String lastname, @Field("email") String email);
+    Call<Object> postRegister(@Field("username") String username, @Field("password") String password, @Field("first_name") String firstname, @Field("last_name") String lastname, @Field("email") String email);
 
 }
