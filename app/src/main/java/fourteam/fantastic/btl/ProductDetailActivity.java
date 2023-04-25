@@ -2,9 +2,11 @@ package fourteam.fantastic.btl;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,8 @@ import com.google.gson.JsonParser;
 
 import org.w3c.dom.Text;
 
+import fourteam.fantastic.btl.RequestBody.CartRequestBody;
+import fourteam.fantastic.btl.api.CartApi;
 import fourteam.fantastic.btl.api.ProductApi;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,12 +51,22 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnAddToCart = (Button) findViewById(R.id.btnAddToCart);
 
 //        Get product_id by Intent
-        Integer product_id = Integer.parseInt(getIntent().getStringExtra("product_id"));
-        System.out.println("product_id: " + product_id);
+        final Integer product_id = Integer.parseInt(getIntent().getStringExtra("product_id"));
+        final Integer user_id = (int) Double.parseDouble(getIntent().getStringExtra("user_id"));
 
+
+
+//        Xử lí
         if(product_id != null){
             CallProductDetailApi(product_id);
         }
+
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CallAddToCartApi(user_id, product_id);
+            }
+        });
     }
 
     public void CallProductDetailApi(int id){
@@ -99,6 +113,26 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
                 txtProductCategory.setText(categories);
             }
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void CallAddToCartApi(int user_id, int product_id){
+        CartApi.retrofit.addToCart(new CartRequestBody(user_id, product_id)).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                System.out.println("product_id: " + product_id);
+                System.out.println("user_id: " + user_id);
+                if(response.isSuccessful()){
+                    Toast.makeText(ProductDetailActivity.this, "Add to cart success", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(ProductDetailActivity.this, "Add to cart false", Toast.LENGTH_SHORT).show();
+                }
+            }
+
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
 

@@ -1,5 +1,6 @@
 package fourteam.fantastic.btl.model;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.util.List;
 
+import fourteam.fantastic.btl.CartActivity;
 import fourteam.fantastic.btl.HomeProductListActivity;
 import fourteam.fantastic.btl.ProductDetailActivity;
 import fourteam.fantastic.btl.R;
+import fourteam.fantastic.btl.api.UserApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> mList;
@@ -44,6 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Glide.with(holder.itemView).load(product.getImg()).into(holder.img);
         holder.name.setText(product.getName());
         holder.price.setText(product.getPrice());
+
         holder.btnAddWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,11 +64,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent productDetailIntent = new Intent(view.getContext(), ProductDetailActivity.class);
+//                Nhận Intent from login
+                Activity activity = (Activity) holder.itemView.getContext();
+                Intent intent = activity.getIntent();
+                final String token = "token " + intent.getStringExtra("token");
+//                Gửi
+                CallGetUserInfor(view, token);
+            }
 
-                productDetailIntent.putExtra("product_id", String.valueOf(product.getId()));
+            private void CallGetUserInfor(View view, String token){
+                UserApi.retrofitUser.getMe(token).enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        Gson gson = new Gson();
+                        String userJson = gson.toJson(response.body());
+                        JsonElement user = new JsonParser().parse(userJson);
+                        System.out.println("userJson " + userJson);
+                        String user_id = user.getAsJsonObject().get("id").getAsString();
 
-                view.getContext().startActivity(productDetailIntent);
+                        Intent productDetailIntent = new Intent(view.getContext(), ProductDetailActivity.class);
+                        productDetailIntent.putExtra("product_id", String.valueOf(product.getId()));
+                        productDetailIntent.putExtra("user_id", user_id);
+                        view.getContext().startActivity(productDetailIntent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
