@@ -23,8 +23,8 @@ import retrofit2.http.Query;
 
 public interface UserApi {
     Resources resources = Resources.getSystem();
-    String ip_config = "http://" + resources.getString(R.string.ip_config);
-    String port_gateway = resources.getString(R.string.port_gateway);
+    String ip_config = "http://192.168.1.14";
+    String port_gateway = "9999";
 
     Gson gson = new GsonBuilder().create();
     UserApi retrofitUser = new Retrofit.Builder()

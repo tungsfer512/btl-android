@@ -115,12 +115,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:text="Country"
+                        android:text="City"
                         android:textColor="@color/white"
                         android:textSize="20dp"/>
 
                     <EditText
-                        android:id="@+id/countryText"
+                        android:id="@+id/cityText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -129,8 +129,8 @@
                         android:layout_marginBottom="15dp"
                         android:backgroundTint="@color/grey"
                         android:ems="10"
-                        android:hint="Eg: Vietnam"
-                        android:inputType="textPassword"
+                        android:hint="Eg: Ha Noi"
+
                         android:textColor="@color/white"
                         android:textColorHint="@color/grey"
                         android:textSize="18dp" />
@@ -146,12 +146,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:text="City"
+                        android:text="District"
                         android:textColor="@color/white"
                         android:textSize="20dp"/>
 
                     <EditText
-                        android:id="@+id/cityText"
+                        android:id="@+id/townText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -160,8 +160,8 @@
                         android:layout_marginBottom="15dp"
                         android:backgroundTint="@color/grey"
                         android:ems="10"
-                        android:hint="Eg: Hanoi"
-                        android:inputType="textPassword"
+                        android:hint="Eg: Ha Dong"
+
                         android:textColor="@color/white"
                         android:textColorHint="@color/grey"
                         android:textSize="18dp" />

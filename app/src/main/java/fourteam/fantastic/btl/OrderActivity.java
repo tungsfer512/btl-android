@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +41,17 @@ public class OrderActivity extends AppCompatActivity {
         Integer user_id_int = (int) Double.parseDouble(user_id);
         System.out.println("check token: " + token);
         System.out.println("check user_id: " + user_id);
-
+//        set listAdapter
         lv = (ListView) findViewById(R.id.orderItem);
         orderAdapter = new OrderAdapter(this,R.layout.order_item,arrayList);
         lv.setAdapter(orderAdapter);
 
+//        intent address
+        Intent addressIntent = new Intent(OrderActivity.this, AddressActivity.class);
+        addressIntent.putExtra("token",token);
+        addressIntent.putExtra("user_id",user_id);
+
+//        get api cart
         CartApi.retrofit.getAllCarts().enqueue(new Callback<Object>() {
 
             @Override
@@ -91,23 +99,36 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-        ImageButton addressButton = findViewById(R.id.addressButton);
-        addressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent address = new Intent(OrderActivity.this, AddressActivity.class);
 
-                startActivity(address);
-            }
-        });
+
 
         UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
-
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 Gson gson = new Gson();
-                String data = gson.toJson(response);
-                System.out.println(data);
+                String data = gson.toJson(response.body());
+                System.out.println("Address " + data);
+                JsonElement addressElement = new JsonParser().parse(data);
+                int size = addressElement.getAsJsonObject().get("data").getAsJsonArray().size();
+                if(size == 0){
+                    TextView addresDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                    addresDisplayOrder.setText("Please fill in the address");
+                    addressIntent.putExtra("checkAddress","false");
+                    return;
+                }
+                addressIntent.putExtra("checkAddress","true");
+                JsonObject addressObject = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+                String addressStr = addressObject.get("address").getAsString();
+                String town = addressObject.get("town").getAsString();
+//                    String street = addressObject.get("street").getAsString();
+                String city = addressObject.get("city").getAsString();
+
+                String addressDisplay = addressStr + ", "+ town  + ", " + city + ", Viet Nam";
+
+                TextView addresDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                addresDisplayOrder.setText(addressDisplay);
+                ImageView checkDisplayAddressImageView = findViewById(R.id.checkDisplayAddressImageView);
+                checkDisplayAddressImageView.setImageResource(R.drawable.icons8_tiktok_verified_account_48_green_tick);
             }
 
             @Override
@@ -116,6 +137,15 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
+
+        ImageButton addressButton = findViewById(R.id.addressButton);
+        addressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(addressIntent);
+            }
+        });
         ImageButton paymentButton = findViewById(R.id.paymentButton);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override

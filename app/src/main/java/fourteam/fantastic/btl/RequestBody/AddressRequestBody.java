@@ -5,16 +5,14 @@ public class AddressRequestBody {
     String receiver_phone;
     String city;
     String town;
-    String street;
     String address;
     Integer user;
 
-    public AddressRequestBody(String receiver_name, String receiver_phone, String city, String town, String street, String address, Integer user) {
+    public AddressRequestBody(String receiver_name, String receiver_phone, String city, String town, String address, Integer user) {
         this.receiver_name = receiver_name;
         this.receiver_phone = receiver_phone;
         this.city = city;
         this.town = town;
-        this.street = street;
         this.address = address;
         this.user = user;
     }
@@ -51,13 +49,6 @@ public class AddressRequestBody {
         this.town = town;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
 
     public String getAddress() {
         return address;
