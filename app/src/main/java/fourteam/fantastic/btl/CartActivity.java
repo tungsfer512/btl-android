@@ -1,7 +1,10 @@
 package fourteam.fantastic.btl;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,11 +33,12 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-//        final String token = getIntent().getStringExtra("token");
-//        final String user_id = getIntent().getStringExtra("user_id");
-//
-//        System.out.println("check token: " + token);
-//        System.out.println("check user_id: " + user_id);
+        final String token = getIntent().getStringExtra("token");
+        final String user_id = getIntent().getStringExtra("user_id");
+
+        System.out.println("check token: " + token);
+        System.out.println("check user_id: " + user_id);
+        Integer user_id_int = (int) Double.parseDouble(user_id);
         lv = (ListView) findViewById(R.id.listCart);
         adapter = new CartAdapter(this,R.layout.cart_item,arrayList);
         lv.setAdapter(adapter);
@@ -49,21 +53,25 @@ public class CartActivity extends AppCompatActivity {
                 int size = carts.getAsJsonObject().get("data").getAsJsonArray().size();
                 for (int i = 0; i < size; i++){
                     JsonObject cart = carts.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
-                    Integer cart_id =(int) Double.parseDouble(cart.get("id").getAsString());
-                    Integer quantity =(int) Double.parseDouble(cart.get("quantity").getAsString());
+                    Integer user_id_c = (int) Double.parseDouble(cart.get("user_id").getAsString());
 
-                    System.out.println(cart_id);
-                    JsonObject product = cart.get("product").getAsJsonObject();
-                    String title = product.get("title").getAsString();
-                    System.out.println(title);
-                    Double price = Double.parseDouble(product.get("price").getAsString());
-                    System.out.println(price);
-                    String image = product.get("images").getAsJsonArray().get(0).getAsJsonObject().get("image").getAsString();
-                    System.out.println(image);
-                    String old = "product-service:9000";
-                    String newS = image.replace(old,"192.168.10.221:9116");
-                    System.out.println(newS);
-                    arrayList.add(new Cart(cart_id,newS,title,quantity,price));
+                    if (user_id_int == user_id_c){
+                        Integer cart_id =(int) Double.parseDouble(cart.get("id").getAsString());
+                        Integer quantity =(int) Double.parseDouble(cart.get("quantity").getAsString());
+
+
+                        JsonObject product = cart.get("product").getAsJsonObject();
+                        String title = product.get("title").getAsString();
+
+                        Double price = Double.parseDouble(product.get("price").getAsString());
+
+                        String image = product.get("images").getAsJsonArray().get(0).getAsJsonObject().get("image").getAsString();
+
+                        String old = "product-service:9000";
+                        String newS = image.replace(old,"192.168.10.221:9116");
+
+                        arrayList.add(new Cart(cart_id,newS,title,quantity,price));
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -73,5 +81,6 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

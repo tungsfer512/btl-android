@@ -65,7 +65,7 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/imageButtonMa"
+                    android:id="@+id/upQuantity"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/roundedbutton"
@@ -85,7 +85,7 @@
                     android:textSize="12dp" />
 
                 <ImageButton
-                    android:id="@+id/imageButtonMa3"
+                    android:id="@+id/downQuantity"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/roundedbutton"
@@ -99,7 +99,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageButtonMa4"
+                        android:id="@+id/deleteCart"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="20dp"
