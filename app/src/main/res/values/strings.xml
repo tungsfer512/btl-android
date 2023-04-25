@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">btl</string>
+    <string name="ip_config">192.168.10.221</string>
+    <string name="port_gateway">9999</string>
+    <string name="port_ai">9111</string>
+    <string name="port_cart">9112</string>
+    <string name="port_comment">9113</string>
+    <string name="port_order">9114</string>
+    <string name="port_payment">9115</string>
+    <string name="port_product">9116</string>
+    <string name="port_shipment">9117</string>
+    <string name="port_user">9118</string>
     <string name="username">Henmendra</string>
     <string name="home">Home</string>
     <string name="vetify">Vetify Profile</string>

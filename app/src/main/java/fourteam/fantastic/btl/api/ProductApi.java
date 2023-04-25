@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface ProductApi {
 
@@ -24,6 +25,9 @@ public interface ProductApi {
             .create(ProductApi.class);
     @GET("/products")
     Call<Object> getAllProducts();
+
+    @GET("/products/{id}")
+    Call<Object> getProductDetail(@Path("id") int product_id);
 
     @GET("/categories")
     Call<Object> getAllCategories();

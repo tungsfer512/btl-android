@@ -56,7 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             public void onClick(View view) {
                 Intent productDetailIntent = new Intent(view.getContext(), ProductDetailActivity.class);
 
-                productDetailIntent.putExtra("product_id", product.getId());
+                productDetailIntent.putExtra("product_id", String.valueOf(product.getId()));
 
                 view.getContext().startActivity(productDetailIntent);
             }

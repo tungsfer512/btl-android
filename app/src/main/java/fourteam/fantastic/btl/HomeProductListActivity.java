@@ -43,16 +43,20 @@ public class HomeProductListActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.menuHomeList:
                         mviewPager.setCurrentItem(0);
+                        drawerLayout.close();
                         break;
                     case R.id.menuWishlist:
                         Toast.makeText(HomeProductListActivity.this, "menuWishlist", Toast.LENGTH_SHORT).show();
                         mviewPager.setCurrentItem(1);
+                        drawerLayout.close();
                         break;
                     case R.id.menuOrder:
                         mviewPager.setCurrentItem(2);
+                        drawerLayout.close();
                         break;
                     case R.id.menuMyCards:
                         mviewPager.setCurrentItem(3);
+                        drawerLayout.close();
                         break;
                 }
                 return true;

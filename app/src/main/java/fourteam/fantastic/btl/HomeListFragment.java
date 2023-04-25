@@ -82,7 +82,8 @@ public class HomeListFragment extends Fragment {
                     JsonObject value1 = root.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
                     Integer id = (int) Double.parseDouble(value1.get("id").getAsString());
                     String image = value1.get("images").getAsJsonArray().get(0).getAsJsonObject().get("image").getAsString();
-                    image = image.replace("product-service:9000", "192.168.10.221:9116");
+                    String replaceString = getResources().getString(R.string.ip_config) + ":" + getResources().getString(R.string.port_product);
+                    image = image.replace("product-service:9000", replaceString);
                     Log.e("Product List " + id + ": ", image);
                     String title = value1.get("title").getAsString();
                     String price = "$" + value1.get("price").toString();
