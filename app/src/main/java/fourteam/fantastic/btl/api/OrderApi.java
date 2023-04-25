@@ -1,5 +1,7 @@
 package fourteam.fantastic.btl.api;
 
+import android.content.res.Resources;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,10 +13,14 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface OrderApi {
+    Resources resources = Resources.getSystem();
+    String ip_config = "http://" + resources.getString(R.string.ip_config);
+    String port_gateway = resources.getString(R.string.port_gateway);
+
     Gson gson = new GsonBuilder().create();
 
     OrderApi retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.14:9999")
+            .baseUrl(ip_config + ":" + port_gateway)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(OrderApi.class);
