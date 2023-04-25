@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 
 import fourteam.fantastic.btl.R;
 import fourteam.fantastic.btl.RequestBody.AddressRequestBody;
-import fourteam.fantastic.btl.model.User;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
