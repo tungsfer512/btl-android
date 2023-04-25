@@ -26,7 +26,7 @@ public interface UserApi {
     @Headers({
             "Accept: application/json"
     })
-    @GET("/me")
+    @GET("users/auth/me")
     Call<Object> getMe(@Header("Authorization") String token);
 
     @FormUrlEncoded

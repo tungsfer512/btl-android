@@ -1,5 +1,6 @@
 package fourteam.fantastic.btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,20 +17,31 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import fourteam.fantastic.btl.api.UserApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeProductListActivity extends AppCompatActivity {
 
     private BottomNavigationView mbottomNavigationView;
     private ViewPager mviewPager;
 
+    private ImageView imageCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_product_list);
 
-        String token = getIntent().getStringExtra("token");
+        final String token = "token "+ getIntent().getStringExtra("token");
 
         System.out.println("check token: " + token);
+
 
 
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -67,6 +79,7 @@ public class HomeProductListActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 //        NavController navController = (NavController) Navigation.findNavController(this, R.id.navHostFragment);
 //        NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -117,6 +130,18 @@ public class HomeProductListActivity extends AppCompatActivity {
         if(imageView != null)
             imageView.setImageResource(R.drawable.ic_image_search);
 //        end search
+
+//        Go to Cart
+        imageCart = (ImageView) findViewById(R.id.imageCart);
+
+        imageCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(token != null){
+                    CallGetUserInfor(token);
+                }
+            }
+        });
     }
 
     @Override
@@ -151,4 +176,27 @@ public class HomeProductListActivity extends AppCompatActivity {
         });
     }
 
+
+    private void CallGetUserInfor(String token){
+        UserApi.retrofitUser.getMe(token).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Gson gson = new Gson();
+                String userJson = gson.toJson(response.body());
+                JsonElement user = new JsonParser().parse(userJson);
+                System.out.println("userJson " + userJson);
+                String user_id = user.getAsJsonObject().get("id").getAsString();
+
+                Intent intentGoToCart = new Intent(HomeProductListActivity.this, CartActivity.class);
+                intentGoToCart.putExtra("user_id", user_id);
+                intentGoToCart.putExtra("token", token);
+                startActivity(intentGoToCart);
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+    }
 }
