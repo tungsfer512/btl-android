@@ -1,11 +1,8 @@
 package fourteam.fantastic.btl.api;
 
-import android.content.res.Resources;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import fourteam.fantastic.btl.R;
 import fourteam.fantastic.btl.RequestBody.CartRequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,12 +17,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CartApi {
-    Resources resources = Resources.getSystem();
-    String ip_config = "http://" + resources.getString(R.string.ip_config);
-    String port_gateway = resources.getString(R.string.port_gateway);
     Gson gson = new GsonBuilder().create();
     CartApi retrofit = new Retrofit.Builder()
-            .baseUrl(ip_config + ":" + port_gateway)
+            .baseUrl("http://192.168.1.14:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(CartApi.class);
