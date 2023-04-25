@@ -27,6 +27,11 @@ public class HomeProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_product_list);
 
+        String token = getIntent().getStringExtra("token");
+
+        System.out.println("check token: " + token);
+
+
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
