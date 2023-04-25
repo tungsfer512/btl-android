@@ -142,7 +142,9 @@
                                     <ImageView
                                         android:layout_width="30dp"
                                         android:layout_height="30dp"
-                                        app:srcCompat="@drawable/icons8_tiktok_verified_account_48_green_tick" />
+                                        app:srcCompat="@drawable/icons8_cancel_48"
+                                        />
+
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
