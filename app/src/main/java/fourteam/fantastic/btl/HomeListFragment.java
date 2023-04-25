@@ -1,5 +1,6 @@
 package fourteam.fantastic.btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,16 +43,19 @@ public class HomeListFragment extends Fragment {
 //        Gson gson = new Gson();
 //        String strJson =  gson.toJson(getLists());
         List<Product> listProduct = new ArrayList<>();
-
         System.out.println("Call Api Product List");
         getProductListApi(view, listProduct);
 
         // Set the GridLayout's columns and rows.
 
         List<Category> listCategory = new ArrayList<>();
-
         System.out.println("Call Api Category List");
         getCategoryListApi(view, listCategory);
+
+//        get Intent nhận
+//        Intent intent = getActivity().getIntent();
+//        String token = intent.getStringExtra("token");
+//        System.out.println("token: " + token);
 
         return view;
     }
