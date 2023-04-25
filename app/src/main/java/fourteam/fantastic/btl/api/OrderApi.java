@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 public interface OrderApi {
     Gson gson = new GsonBuilder().create();
     ProductApi retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.13:9999")
+            .baseUrl("http://192.168.10.221:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ProductApi.class);

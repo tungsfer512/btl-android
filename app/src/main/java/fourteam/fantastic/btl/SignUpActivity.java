@@ -14,7 +14,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        Intent next = new Intent(this, HomeProductListActivity.class);
+        Intent next = new Intent(this, LoginActivity.class);
 
         Button registerButton = findViewById(R.id.registerButton);
 
