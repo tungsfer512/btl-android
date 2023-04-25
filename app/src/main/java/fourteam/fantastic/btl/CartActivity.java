@@ -1,8 +1,10 @@
 package fourteam.fantastic.btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class CartActivity extends AppCompatActivity {
                 String cartList = gson.toJson(response.body());
                 JsonElement carts = new JsonParser().parse(cartList);
                 int size = carts.getAsJsonObject().get("data").getAsJsonArray().size();
+
                 for (int i = 0; i < size; i++){
                     JsonObject cart = carts.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
                     Integer user_id_c = (int) Double.parseDouble(cart.get("user_id").getAsString());
@@ -68,11 +71,13 @@ public class CartActivity extends AppCompatActivity {
                         String image = product.get("images").getAsJsonArray().get(0).getAsJsonObject().get("image").getAsString();
 
                         String old = "product-service:9000";
-                        String newS = image.replace(old,"192.168.10.221:9116");
+                        String newS = image.replace(old,getResources().getString(R.string.ip_config) + ":" + getResources().getString(R.string.port_product));
 
                         arrayList.add(new Cart(cart_id,newS,title,quantity,price));
                     }
                 }
+
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -81,6 +86,15 @@ public class CartActivity extends AppCompatActivity {
 
             }
         });
-
+        Button checkoutButton = findViewById(R.id.checkoutButton);
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this,OrderActivity.class);
+                intent.putExtra("token",token);
+                intent.putExtra("user_id",user_id);
+                startActivity(intent);
+            }
+        });
     }
 }

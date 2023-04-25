@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 public interface UserApi {
     Gson gson = new GsonBuilder().create();
     UserApi retrofitUser = new Retrofit.Builder()
-            .baseUrl("http://192.168.10.221:9999")
+            .baseUrl("http://192.168.1.14:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(UserApi.class);
