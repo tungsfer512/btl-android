@@ -14,11 +14,11 @@ import retrofit2.http.Path;
 
 public interface CartApi {
     Gson gson = new GsonBuilder().create();
-    ProductApi retrofit = new Retrofit.Builder()
+    CartApi retrofit = new Retrofit.Builder()
             .baseUrl("http://192.168.10.221:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(ProductApi.class);
+            .create(CartApi.class);
 
     @GET("/carts")
     Call<Object> getAllCarts();

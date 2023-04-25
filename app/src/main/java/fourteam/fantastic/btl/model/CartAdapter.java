@@ -64,7 +64,6 @@ public class CartAdapter extends BaseAdapter {
         }
         Cart cart = cartList.get(i);
         Glide.with(view).load(cart.getImage()).into(cartViewHolder.imageProductView);
-
         cartViewHolder.title.setText(cart.getTitle());
         cartViewHolder.price.setText(String.valueOf(cart.getPrice()));
         cartViewHolder.quantity.setText(String.valueOf(cart.getQuantity()));
