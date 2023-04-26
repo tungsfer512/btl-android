@@ -37,7 +37,7 @@ public class AddressActivity extends AppCompatActivity {
         System.out.println("check token: " + token);
         System.out.println("check user_id: " + user_id);
         System.out.println("Check address: "+ checkAddress);
-
+        Intent orderIntent = new Intent(AddressActivity.this,OrderActivity.class);
         if(checkAddress.equalsIgnoreCase("true")){
             UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
                 @Override
@@ -122,12 +122,14 @@ public class AddressActivity extends AppCompatActivity {
                 if(checkAddress.equalsIgnoreCase("true")){
                     final String addressId = getIntent().getStringExtra("addressId");
                     Integer addressIdint = (int) Double.parseDouble(addressId);
+//                    orderIntent.putExtra("addressId",addressId);
                     UserApi.retrofitUser.updateAddress(addressIdint,new AddressRequestBody(fullnameStr,phoneStr,cityStr,townStr,addressStr,user_id_int)).enqueue(new Callback<Object>() {
 
                         @Override
                         public void onResponse(Call<Object> call, Response<Object> response) {
                             if(response.code()==200){
                                 System.out.println("update address ok");
+                                orderIntent.putExtra("checkAddress","update");
                             }
                         }
 
@@ -143,6 +145,14 @@ public class AddressActivity extends AppCompatActivity {
                         public void onResponse(Call<Object> call, Response<Object> response) {
                             if(response.isSuccessful()){
                                 System.out.println("add address ok!");
+                                Gson gson = new Gson();
+                                String addressId_ = gson.toJson(response.body());
+                                JsonElement addressElement = new JsonParser().parse(addressId_);
+                                JsonObject address_ = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+//                                Integer addressId = (int) Double.parseDouble(address_.get("id").getAsString());
+
+                                orderIntent.putExtra("addressId",address_.get("id").getAsString());
+                                orderIntent.putExtra("checkAddress","add");
                             }
                         }
 
@@ -153,10 +163,10 @@ public class AddressActivity extends AppCompatActivity {
                     });
                 }
 
-                Intent orderIntent = new Intent(AddressActivity.this,OrderActivity.class);
+
                 orderIntent.putExtra("token",token);
                 orderIntent.putExtra("user_id",user_id);
-                orderIntent.putExtra("checkAddress","true");
+
 
                 String checkPaymentForAddress = getIntent().getStringExtra("checkPayment");
                 System.out.println("check payment: " + checkPaymentForAddress);
