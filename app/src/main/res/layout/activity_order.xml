@@ -208,9 +208,10 @@
                                 android:background="@drawable/border_image"
                                 >
                                 <ImageView
+                                    android:id="@+id/paymentImageView"
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
-                                    app:srcCompat="@drawable/icons8_visa_64"
+                                    app:srcCompat="@drawable/icons8_money_bag_100"
                                     />
                             </LinearLayout>
                             <LinearLayout
@@ -224,12 +225,14 @@
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
                                     <TextView
+                                        android:id="@+id/paymentMethodTextView"
                                         android:layout_width="196dp"
                                         android:layout_height="wrap_content"
                                         android:text="Visa Classic"
                                         android:textColor="@color/white"></TextView>
 
                                     <TextView
+                                        android:id="@+id/cardNumberTextView"
                                         android:layout_width="196dp"
                                         android:layout_height="wrap_content"
                                         android:text="**** 7069"

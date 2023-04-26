@@ -101,7 +101,7 @@ public class OrderActivity extends AppCompatActivity {
         });
 
 
-
+//      check address
         UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -118,6 +118,8 @@ public class OrderActivity extends AppCompatActivity {
                 }
                 addressIntent.putExtra("checkAddress","true");
                 JsonObject addressObject = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+                String addressId = addressObject.get("id").getAsString();
+                addressIntent.putExtra("addressId",addressId);
                 String addressStr = addressObject.get("address").getAsString();
                 String town = addressObject.get("town").getAsString();
 //                    String street = addressObject.get("street").getAsString();
@@ -137,7 +139,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-
+//        address
         ImageButton addressButton = findViewById(R.id.addressButton);
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +148,7 @@ public class OrderActivity extends AppCompatActivity {
                 startActivity(addressIntent);
             }
         });
+//        payment
         ImageButton paymentButton = findViewById(R.id.paymentButton);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override

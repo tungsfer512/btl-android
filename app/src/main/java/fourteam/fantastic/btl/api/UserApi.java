@@ -17,13 +17,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
 public interface UserApi {
     Resources resources = Resources.getSystem();
-    String ip_config = "http://192.168.1.14";
+    String ip_config = "http://172.20.10.2";
     String port_gateway = "9999";
 
     Gson gson = new GsonBuilder().create();
@@ -59,6 +60,9 @@ public interface UserApi {
     @GET("/addresses")
     Call<Object> getAllAddresses(@Query("user") Integer user);
 
-    @GET("addresses/{id}")
+    @GET("/addresses/{id}")
     Call<Object> getAddressById(@Path("id") Integer id);
+
+    @PUT("/addresses/{id}")
+    Call<Object> updateAddress(@Path("id") Integer id, @Body AddressRequestBody addressRequestBody);
 }

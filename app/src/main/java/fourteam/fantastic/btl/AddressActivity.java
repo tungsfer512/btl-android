@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import fourteam.fantastic.btl.RequestBody.AddressRequestBody;
 import fourteam.fantastic.btl.api.UserApi;
+import fourteam.fantastic.btl.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,7 +54,9 @@ public class AddressActivity extends AppCompatActivity {
                     String townStr = addressObject.get("town").getAsString();
 //                    String street = addressObject.get("street").getAsString();
                     String cityStr = addressObject.get("city").getAsString();
+
                     System.out.println("Check true " + receiver_nameStr);
+
                     EditText fullname = findViewById(R.id.fullnameText);
                     EditText phone = findViewById(R.id.phoneText);
                     EditText town = findViewById(R.id.townText);
@@ -77,16 +82,81 @@ public class AddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText fullname = findViewById(R.id.fullnameText);
+                EditText phone = findViewById(R.id.phoneText);
                 EditText town = findViewById(R.id.townText);
                 EditText city = findViewById(R.id.cityText);
                 EditText address = findViewById(R.id.addressText);
 
-                String fullnameStr = fullname.getText().toString();
-                String townStr = town.getText().toString();
-                String cityStr = city.getText().toString();
-                String addressStr = address.getText().toString();
+                String fullnameStr = fullname.getText().toString().trim();
+                String phoneStr = phone.getText().toString().trim();
+                String townStr = town.getText().toString().trim();
+                String cityStr = city.getText().toString().trim();
+                String addressStr = address.getText().toString().trim();
+
+                System.out.println("fullname: " + fullnameStr);
+                System.out.println("phone: " +phoneStr);
+                System.out.println("town: " + townStr);
+                System.out.println("city: " + cityStr);
+                System.out.println("address: " + addressStr);
+                if(fullnameStr.equalsIgnoreCase("")) {
+                    Toast.makeText(AddressActivity.this, "fullname invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(phoneStr.equalsIgnoreCase("")) {
+                    Toast.makeText(AddressActivity.this, "phone number invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(townStr.equalsIgnoreCase("")) {
+                    Toast.makeText(AddressActivity.this, "district invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(cityStr.equalsIgnoreCase("")) {
+                    Toast.makeText(AddressActivity.this, "city invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(addressStr.equalsIgnoreCase("")) {
+                    Toast.makeText(AddressActivity.this, "address invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(checkAddress.equalsIgnoreCase("true")){
+                    final String addressId = getIntent().getStringExtra("addressId");
+                    Integer addressIdint = (int) Double.parseDouble(addressId);
+                    UserApi.retrofitUser.updateAddress(addressIdint,new AddressRequestBody(fullnameStr,phoneStr,cityStr,townStr,addressStr,user_id_int)).enqueue(new Callback<Object>() {
+
+                        @Override
+                        public void onResponse(Call<Object> call, Response<Object> response) {
+                            if(response.code()==200){
+                                System.out.println("update address success");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+
+                        }
+                    });
+                } else {
+                    UserApi.retrofitUser.addAddress(new AddressRequestBody(fullnameStr,phoneStr,cityStr,townStr,addressStr,user_id_int)).enqueue(new Callback<Object>() {
+
+                        @Override
+                        public void onResponse(Call<Object> call, Response<Object> response) {
+                            if(response.isSuccessful()){
+                                System.out.println("add address ok!");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+
+                        }
+                    });
+                }
 
                 Intent orderIntent = new Intent(AddressActivity.this,OrderActivity.class);
+                orderIntent.putExtra("token",token);
+                orderIntent.putExtra("user_id",user_id);
+
                 startActivity(orderIntent);
             }
         });
