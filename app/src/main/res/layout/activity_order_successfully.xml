@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".OrderSuccessfullyActivity">
 
   <LinearLayout
@@ -27,8 +28,8 @@
           android:id="@+id/order_successfully"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:background="#fff"
-          android:src="@drawable/order_successfully" />
+          android:background="@color/primaryBackground"
+          android:src="@drawable/order_confirm" />
 
     </LinearLayout>
 
@@ -44,6 +45,7 @@
           android:gravity="center"
           android:lineHeight="31sp"
           android:text="Order Confirmed!"
+          android:textColor="@color/white"
           android:textSize="35sp"
           />
 
@@ -56,6 +58,7 @@
           android:textSize="16dp"
           android:layout_weight="1"
           android:gravity="center"
+          android:textColor="@color/white"
           android:text="Your order has been confirmed, we will send you confirmation email shortly." />
     </LinearLayout>
 
@@ -67,19 +70,20 @@
         android:layout_marginTop="30dp">
 
         <Button
+
             android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/checkoutButton"
+            android:id="@+id/gotoOrdesSuccessfullyButton"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:inputType="textCapSentences"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="Go to orders"
-            android:textColor="@color/grey"
+            android:textColor="@color/white"
             android:textSize="20dp"
-            android:background="@drawable/border_button"
+            android:backgroundTint="@color/backButton"
             app:cornerRadius="0dp">
 
         </Button>

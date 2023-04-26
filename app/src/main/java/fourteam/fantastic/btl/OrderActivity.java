@@ -24,6 +24,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+import fourteam.fantastic.btl.RequestBody.OrderRequestBody;
 import fourteam.fantastic.btl.api.CartApi;
 import fourteam.fantastic.btl.api.OrderApi;
 import fourteam.fantastic.btl.api.UserApi;
@@ -89,6 +90,54 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void checkAddressByUserApi(Integer user_id_int,String[] addressUpdate, Intent addressIntent){
+        UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Gson gson = new Gson();
+                String data = gson.toJson(response.body());
+                System.out.println("Address " + data);
+                JsonElement addressElement = new JsonParser().parse(data);
+                int size = addressElement.getAsJsonObject().get("data").getAsJsonArray().size();
+                if(size == 0) {
+                    TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                    addressDisplayOrder.setText("Please enter your address");
+                    addressIntent.putExtra("checkAddress","false");
+                    return;
+                }
+                addressIntent.putExtra("checkAddress","true");
+
+                String checkPaymentForAddress = getIntent().getStringExtra("checkPayment");
+                System.out.println("check payment: " + checkPaymentForAddress);
+                if (checkPaymentForAddress.equalsIgnoreCase("true")){
+                    addressIntent.putExtra("checkPayment","true");
+                } else {
+                    addressIntent.putExtra("checkPayment","false");
+                }
+                JsonObject addressObject = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+                String addressId = addressObject.get("id").getAsString();
+                addressUpdate[0] = addressId;
+                addressIntent.putExtra("addressId",addressId);
+                String addressStr = addressObject.get("address").getAsString();
+                String town = addressObject.get("town").getAsString();
+//                    String street = addressObject.get("street").getAsString();
+                String city = addressObject.get("city").getAsString();
+
+                String addressDisplay = addressStr + ", "+ town  + ", " + city + ", Viet Nam";
+
+                TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                addressDisplayOrder.setText(addressDisplay);
+                ImageView checkDisplayAddressImageView = findViewById(R.id.checkDisplayAddressImageView);
+                checkDisplayAddressImageView.setImageResource(R.drawable.icons8_tiktok_verified_account_48_green_tick);
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,52 +161,9 @@ public class OrderActivity extends AppCompatActivity {
 //        get api cart
         getAllCartAndAddListId(cartIdList,user_id_int);
 
-
+        String[] addressIdUpdate = {"update"};
 //      check address
-        UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                Gson gson = new Gson();
-                String data = gson.toJson(response.body());
-                System.out.println("Address " + data);
-                JsonElement addressElement = new JsonParser().parse(data);
-                int size = addressElement.getAsJsonObject().get("data").getAsJsonArray().size();
-                if(size == 0){
-                    TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
-                    addressDisplayOrder.setText("Please enter your address");
-                    addressIntent.putExtra("checkAddress","false");
-                    return;
-                }
-                addressIntent.putExtra("checkAddress","true");
-
-                String checkPaymentForAddress = getIntent().getStringExtra("checkPayment");
-                System.out.println("check payment: " + checkPaymentForAddress);
-                if (checkPaymentForAddress.equalsIgnoreCase("true")){
-                    addressIntent.putExtra("checkPayment","true");
-                } else {
-                    addressIntent.putExtra("checkPayment","false");
-                }
-                JsonObject addressObject = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
-                String addressId = addressObject.get("id").getAsString();
-                addressIntent.putExtra("addressId",addressId);
-                String addressStr = addressObject.get("address").getAsString();
-                String town = addressObject.get("town").getAsString();
-//                    String street = addressObject.get("street").getAsString();
-                String city = addressObject.get("city").getAsString();
-
-                String addressDisplay = addressStr + ", "+ town  + ", " + city + ", Viet Nam";
-
-                TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
-                addressDisplayOrder.setText(addressDisplay);
-                ImageView checkDisplayAddressImageView = findViewById(R.id.checkDisplayAddressImageView);
-                checkDisplayAddressImageView.setImageResource(R.drawable.icons8_tiktok_verified_account_48_green_tick);
-            }
-
-            @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-
-            }
-        });
+        checkAddressByUserApi(user_id_int,addressIdUpdate,addressIntent);
 
 //        address
         LinearLayout addressButton = findViewById(R.id.addressLayout);
@@ -225,8 +231,46 @@ public class OrderActivity extends AppCompatActivity {
                     Toast.makeText(OrderActivity.this, "Please enter you card number", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 System.out.println(cartIdList);
-//                OrderApi.retrofit.addOrder()
+
+                UserApi.retrofitUser.getAllAddresses(user_id_int).enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        Gson gson = new Gson();
+                        String data = gson.toJson(response.body());
+                        System.out.println("Address " + data);
+                        JsonElement addressElement = new JsonParser().parse(data);
+                        JsonObject addressObject = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
+                        String addressId = addressObject.get("id").getAsString();
+
+                        Integer addressId_ = (int) Double.parseDouble(addressId);
+                        String cardNumber = getIntent().getStringExtra("cardNumber");
+                        String cvv = getIntent().getStringExtra("cvv");
+                        OrderApi.retrofit.addOrder(new OrderRequestBody(user_id_int, cartIdList, "fast", addressId_, 10.0, "Giao hang vao ngay nghi", "card", cardNumber, cvv)).enqueue(new Callback<Object>() {
+
+                            @Override
+                            public void onResponse(Call<Object> call, Response<Object> response) {
+                                if (response.isSuccessful()){
+                                    System.out.println("order ok");
+                                    Intent OrderSuccessfullyActivity = new Intent(OrderActivity.this, fourteam.fantastic.btl.OrderSuccessfullyActivity.class);
+                                    startActivity(OrderSuccessfullyActivity);
+                                    return;
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Object> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
     }
