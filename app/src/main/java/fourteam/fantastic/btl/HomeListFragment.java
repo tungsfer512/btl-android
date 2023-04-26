@@ -1,5 +1,7 @@
 package fourteam.fantastic.btl;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -103,44 +105,24 @@ public class HomeListFragment extends Fragment {
             });
         }
 
-//        @Override
-//        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//            super.onActivityResult(requestCode, resultCode, data);
-//
-//            if (requestCode == GALLERY_REQ_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//                Uri uri = data.getData();
-//
-//                try {
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-////                    mImageView.setImageBitmap(bitmap);
-//
-//                    uploadImage(bitmap);
-//                } catch (IOException e) {
-//                    Log.e(TAG, "Error getting image from gallery", e);
-//                }
-//            }
-//        }
-//
-//        private void uploadImage(Bitmap bitmap) {
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//            byte[] data = baos.toByteArray();
-//
-//            UploadTask uploadTask = mStorageReference.child("images/image.jpg").putBytes(data);
-//            uploadTask.addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Log.e(TAG, "Error uploading image", e);
-//                }
-//            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Log.d(TAG, "Image uploaded successfully");
-//                }
-//            });
-//        }
-
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_REQ_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+//                    mImageView.setImageBitmap(bitmap);
+                System.out.println("Checkkkkkkk imgae uploaded");
+//                uploadImage(bitmap);
+            } catch (IOException e) {
+                System.out.println("Error getting image from gallery");
+            }
+        }
     }
 
     private List<Product> getLists(){
@@ -165,6 +147,7 @@ public class HomeListFragment extends Fragment {
                 String productList = gson.toJson(response.body());
                 JsonElement root = new JsonParser().parse(productList);
                 int size = root.getAsJsonObject().get("data").getAsJsonArray().size();
+                System.out.println("size" + size);
                 for (int i=0;i<size;i++){
                     JsonObject value1 = root.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
                     Integer id = (int) Double.parseDouble(value1.get("id").getAsString());
