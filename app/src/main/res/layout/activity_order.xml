@@ -55,6 +55,7 @@
                     >
 
                     <LinearLayout
+                        android:id="@+id/addressLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -152,6 +153,7 @@
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/paymentLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -171,7 +173,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Payment Method"
+                                    android:text="Payment Information"
                                     android:textColor="@color/white">
                                 </TextView>
                             </LinearLayout>
@@ -225,17 +227,17 @@
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical">
                                     <TextView
-                                        android:id="@+id/paymentMethodTextView"
+                                        android:id="@+id/paymentOwnerTextView"
                                         android:layout_width="196dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Visa Classic"
+                                        android:text="CARD OWNER"
                                         android:textColor="@color/white"></TextView>
 
                                     <TextView
                                         android:id="@+id/cardNumberTextView"
                                         android:layout_width="196dp"
                                         android:layout_height="wrap_content"
-                                        android:text="**** 7069"
+                                        android:text="Please enter yor card number"
                                         android:textColor="@color/grey"></TextView>
                                 </LinearLayout>
                                 <LinearLayout
@@ -244,9 +246,11 @@
                                     android:gravity="right"
                                     android:layout_weight="1">
                                     <ImageView
+                                        android:id="@+id/checkDisplayPaymentImageView"
                                         android:layout_width="30dp"
                                         android:layout_height="30dp"
-                                        app:srcCompat="@drawable/icons8_tiktok_verified_account_48_green_tick" />
+                                        app:srcCompat="@drawable/icons8_cancel_48"
+                                        />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>

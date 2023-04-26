@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import org.w3c.dom.Text;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -111,8 +114,8 @@ public class OrderActivity extends AppCompatActivity {
                 JsonElement addressElement = new JsonParser().parse(data);
                 int size = addressElement.getAsJsonObject().get("data").getAsJsonArray().size();
                 if(size == 0){
-                    TextView addresDisplayOrder = findViewById(R.id.addresDisplayOrder);
-                    addresDisplayOrder.setText("Please fill in the address");
+                    TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                    addressDisplayOrder.setText("Please enter your address");
                     addressIntent.putExtra("checkAddress","false");
                     return;
                 }
@@ -127,8 +130,8 @@ public class OrderActivity extends AppCompatActivity {
 
                 String addressDisplay = addressStr + ", "+ town  + ", " + city + ", Viet Nam";
 
-                TextView addresDisplayOrder = findViewById(R.id.addresDisplayOrder);
-                addresDisplayOrder.setText(addressDisplay);
+                TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                addressDisplayOrder.setText(addressDisplay);
                 ImageView checkDisplayAddressImageView = findViewById(R.id.checkDisplayAddressImageView);
                 checkDisplayAddressImageView.setImageResource(R.drawable.icons8_tiktok_verified_account_48_green_tick);
             }
@@ -140,7 +143,7 @@ public class OrderActivity extends AppCompatActivity {
         });
 
 //        address
-        ImageButton addressButton = findViewById(R.id.addressButton);
+        LinearLayout addressButton = findViewById(R.id.addressLayout);
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,12 +152,43 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 //        payment
-        ImageButton paymentButton = findViewById(R.id.paymentButton);
+
+        String checkPayment = getIntent().getStringExtra("checkPayment");
+        System.out.println("check payment: " + checkPayment);
+
+        if (checkPayment.equalsIgnoreCase("true")) {
+
+            String cardOwner = getIntent().getStringExtra("cardOwner");
+            String cardNumber = getIntent().getStringExtra("cardNumber");
+            String exp = getIntent().getStringExtra("exp");
+            String cvv = getIntent().getStringExtra("cvv");
+            System.out.println(cardOwner);
+            System.out.println(cardNumber);
+            System.out.println(exp);
+            System.out.println(cvv);
+
+            TextView paymentOwnerTextView = findViewById(R.id.paymentOwnerTextView);
+            paymentOwnerTextView.setText(cardOwner);
+            TextView cardNumberTextView = findViewById(R.id.cardNumberTextView);
+            StringBuilder te_cardNumberBuilder = new StringBuilder(cardNumber);
+            te_cardNumberBuilder.reverse();
+            String te_cardNumber = te_cardNumberBuilder.substring(0, 4);
+            StringBuilder x_cardNumberBuilder = new StringBuilder(te_cardNumber);
+            x_cardNumberBuilder.reverse();
+            cardNumberTextView.setText("**** " + x_cardNumberBuilder.toString());
+
+            ImageView checkDisplayPaymentImageView = findViewById(R.id.checkDisplayPaymentImageView);
+            checkDisplayPaymentImageView.setImageResource(R.drawable.icons8_tiktok_verified_account_48_green_tick);
+        }
+
+        LinearLayout paymentButton = findViewById(R.id.paymentLayout);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent payment = new Intent(OrderActivity.this,PaymentActivity.class);
-                startActivity(payment);
+                Intent paymentIntent = new Intent(OrderActivity.this,PaymentActivity.class);
+                paymentIntent.putExtra("token",token);
+                paymentIntent.putExtra("user_id",user_id);
+                startActivity(paymentIntent);
             }
         });
     }
