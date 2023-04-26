@@ -93,6 +93,7 @@ public class CartActivity extends AppCompatActivity {
                 Intent intent = new Intent(CartActivity.this,OrderActivity.class);
                 intent.putExtra("token",token);
                 intent.putExtra("user_id",user_id);
+                intent.putExtra("checkPayment", "false");
                 startActivity(intent);
             }
         });
