@@ -72,6 +72,11 @@ public class HomeProductListActivity extends AppCompatActivity {
                         mviewPager.setCurrentItem(3);
                         drawerLayout.close();
                         break;
+                    case R.id.menuLogout:
+                        Intent intentToWelcome = new Intent(HomeProductListActivity.this, GetStartedActivity.class);
+                        drawerLayout.close();
+                        startActivity(intentToWelcome);
+                        break;
                 }
                 return true;
             }
@@ -124,8 +129,10 @@ public class HomeProductListActivity extends AppCompatActivity {
         }
 
         ImageView imageView = findViewById(R.id.image_view);
-        if(imageView != null)
+        if(imageView != null){
             imageView.setImageResource(R.drawable.ic_image_search);
+            System.out.println("image check");
+        }
 //        end search
 
 //        Go to Cart

@@ -109,10 +109,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 Intent intent = activity.getIntent();
                 final String token = "token " + intent.getStringExtra("token");
 //                Gửi
-                CallGetUserInfor(view, token);
+                CallGetProductDetail(view, token);
             }
 
-            private void CallGetUserInfor(View view, String token){
+            private void CallGetProductDetail(View view, String token){
                 UserApi.retrofitUser.getMe(token).enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
@@ -125,6 +125,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                         Intent productDetailIntent = new Intent(view.getContext(), ProductDetailActivity.class);
                         productDetailIntent.putExtra("product_id", String.valueOf(product.getId()));
                         productDetailIntent.putExtra("user_id", user_id);
+                        productDetailIntent.putExtra("token", token);
                         view.getContext().startActivity(productDetailIntent);
                     }
 
