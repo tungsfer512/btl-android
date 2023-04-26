@@ -70,75 +70,6 @@
                     android:textColorHint="@color/grey"
                     android:textSize="18dp" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="Country"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"/>
-
-                    <EditText
-                        android:id="@+id/countryText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="15dp"
-                        android:backgroundTint="@color/grey"
-                        android:ems="10"
-                        android:hint="Eg: Vietnam"
-                        android:inputType="textPassword"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        android:textSize="18dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="City"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"/>
-
-                    <EditText
-                        android:id="@+id/cityText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="15dp"
-                        android:backgroundTint="@color/grey"
-                        android:ems="10"
-                        android:hint="Eg: Hanoi"
-                        android:inputType="textPassword"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        android:textSize="18dp" />
-                </LinearLayout>
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,6 +99,75 @@
                     android:textColorHint="@color/grey"
                     android:textSize="18dp" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="City"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"/>
+
+                    <EditText
+                        android:id="@+id/cityText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:hint="Eg: Ha Noi"
+
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
+                        android:textSize="18dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="District"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"/>
+
+                    <EditText
+                        android:id="@+id/townText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:backgroundTint="@color/grey"
+                        android:ems="10"
+                        android:hint="Eg: Ha Dong"
+
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
+                        android:textSize="18dp" />
+                </LinearLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

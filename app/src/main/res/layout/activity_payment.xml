@@ -130,7 +130,6 @@
                         android:backgroundTint="@color/grey"
                         android:ems="10"
                         android:hint="24/24"
-                        android:inputType="textPassword"
                         android:textColor="@color/white"
                         android:textColorHint="@color/grey"
                         android:textSize="18dp" />
