@@ -11,6 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface OrderApi {
     Gson gson = new GsonBuilder().create();
@@ -22,7 +24,7 @@ public interface OrderApi {
             .create(OrderApi.class);
 
     @GET("/orders")
-    Call<Object> getAllOrders();
+    Call<Object> getAllOrders(@Query("user_id") int user_id);
 
     @POST("/orders")
     Call<Object> addOrder(@Body OrderRequestBody orderRequestBody);
