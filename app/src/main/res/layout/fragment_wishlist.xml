@@ -33,13 +33,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:textColor="@color/grey"
-                android:text="Welcome to Stylist"/>
+                android:text="365 items"/>
         </LinearLayout>
         <!--        End Page Title-->
-        <!--        Category-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rProductLists"
+            android:id="@+id/rWishList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

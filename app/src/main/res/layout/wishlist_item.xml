@@ -17,7 +17,7 @@
             app:cardCornerRadius="12dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnAddWishlist"
+                android:id="@+id/btnDeleteWishlistItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:borderWidth="0dp"
@@ -25,10 +25,10 @@
                 android:layout_gravity="top|end"
                 android:backgroundTint="@color/white"
                 android:clickable="true"
-                app:srcCompat="@drawable/icons8_visa_64" />
+                app:srcCompat="@drawable/ic_cancel" />
 
             <ImageView
-                android:id="@+id/imgProduct"
+                android:id="@+id/imgProductWishlist"
                 android:layout_width="wrap_content"
                 android:layout_height="180dp"
                 android:scaleType="fitCenter"
@@ -36,14 +36,14 @@
 
         </androidx.cardview.widget.CardView>
         <TextView
-            android:id="@+id/nameProduct"
+            android:id="@+id/nameProductWishlist"
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:text="Nike Sportswear Club Fleence"/>
         <TextView
-            android:id="@+id/priceProduct"
+            android:id="@+id/priceProductWishlist"
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
