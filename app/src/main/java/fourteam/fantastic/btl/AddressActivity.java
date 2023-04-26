@@ -127,7 +127,7 @@ public class AddressActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Object> call, Response<Object> response) {
                             if(response.code()==200){
-                                System.out.println("update address success");
+                                System.out.println("update address ok");
                             }
                         }
 
@@ -156,7 +156,15 @@ public class AddressActivity extends AppCompatActivity {
                 Intent orderIntent = new Intent(AddressActivity.this,OrderActivity.class);
                 orderIntent.putExtra("token",token);
                 orderIntent.putExtra("user_id",user_id);
+                orderIntent.putExtra("checkAddress","true");
 
+                String checkPaymentForAddress = getIntent().getStringExtra("checkPayment");
+                System.out.println("check payment: " + checkPaymentForAddress);
+                if (checkPaymentForAddress.equalsIgnoreCase("true")){
+                    orderIntent.putExtra("checkPayment","true");
+                } else {
+                    orderIntent.putExtra("checkPayment","false");
+                }
                 startActivity(orderIntent);
             }
         });

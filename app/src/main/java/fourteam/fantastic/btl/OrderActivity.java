@@ -3,11 +3,13 @@ package fourteam.fantastic.btl;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fourteam.fantastic.btl.api.CartApi;
+import fourteam.fantastic.btl.api.OrderApi;
 import fourteam.fantastic.btl.api.UserApi;
 import fourteam.fantastic.btl.model.Cart;
 import fourteam.fantastic.btl.model.OrderAdapter;
@@ -34,27 +37,7 @@ public class OrderActivity extends AppCompatActivity {
     ListView lv;
     ArrayList<Cart> arrayList = new ArrayList<>();
     OrderAdapter orderAdapter;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
-
-        final String token = getIntent().getStringExtra("token");
-        final String user_id = getIntent().getStringExtra("user_id");
-        Integer user_id_int = (int) Double.parseDouble(user_id);
-        System.out.println("check token: " + token);
-        System.out.println("check user_id: " + user_id);
-//        set listAdapter
-        lv = (ListView) findViewById(R.id.orderItem);
-        orderAdapter = new OrderAdapter(this,R.layout.order_item,arrayList);
-        lv.setAdapter(orderAdapter);
-
-//        intent address
-        Intent addressIntent = new Intent(OrderActivity.this, AddressActivity.class);
-        addressIntent.putExtra("token",token);
-        addressIntent.putExtra("user_id",user_id);
-
-//        get api cart
+    public void getAllCartAndAddListId(ArrayList<Integer> cartIdList,Integer user_id_int){
         CartApi.retrofit.getAllCarts().enqueue(new Callback<Object>() {
 
             @Override
@@ -66,6 +49,7 @@ public class OrderActivity extends AppCompatActivity {
                 JsonElement carts = new JsonParser().parse(jsonResponse);
                 int size = carts.getAsJsonObject().get("data").getAsJsonArray().size();
                 Double priceSubtotal = 0.0;
+                int cnt = 0;
                 for (int i = 0;i < size; i++){
                     JsonObject cart = carts.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
                     Integer user_id_c = (int) Double.parseDouble(cart.get("user_id").getAsString());
@@ -82,6 +66,8 @@ public class OrderActivity extends AppCompatActivity {
 
                         priceSubtotal += (quantity*price);
                         arrayList.add(new Cart(cart_id,newS,title,quantity,price));
+                        cartIdList.add(cart_id);
+                        cnt+=1;
                     }
                 }
 
@@ -102,6 +88,29 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order);
+
+        final String token = getIntent().getStringExtra("token");
+        final String user_id = getIntent().getStringExtra("user_id");
+        Integer user_id_int = (int) Double.parseDouble(user_id);
+        System.out.println("check token: " + token);
+        System.out.println("check user_id: " + user_id);
+//        set listAdapter
+        lv = (ListView) findViewById(R.id.orderItem);
+        orderAdapter = new OrderAdapter(this,R.layout.order_item,arrayList);
+        lv.setAdapter(orderAdapter);
+
+//        intent address
+        Intent addressIntent = new Intent(OrderActivity.this, AddressActivity.class);
+        addressIntent.putExtra("token",token);
+        addressIntent.putExtra("user_id",user_id);
+        ArrayList<Integer> cartIdList = new ArrayList<>();
+//        get api cart
+        getAllCartAndAddListId(cartIdList,user_id_int);
 
 
 //      check address
@@ -120,6 +129,14 @@ public class OrderActivity extends AppCompatActivity {
                     return;
                 }
                 addressIntent.putExtra("checkAddress","true");
+
+                String checkPaymentForAddress = getIntent().getStringExtra("checkPayment");
+                System.out.println("check payment: " + checkPaymentForAddress);
+                if (checkPaymentForAddress.equalsIgnoreCase("true")){
+                    addressIntent.putExtra("checkPayment","true");
+                } else {
+                    addressIntent.putExtra("checkPayment","false");
+                }
                 JsonObject addressObject = addressElement.getAsJsonObject().get("data").getAsJsonArray().get(0).getAsJsonObject();
                 String addressId = addressObject.get("id").getAsString();
                 addressIntent.putExtra("addressId",addressId);
@@ -189,6 +206,27 @@ public class OrderActivity extends AppCompatActivity {
                 paymentIntent.putExtra("token",token);
                 paymentIntent.putExtra("user_id",user_id);
                 startActivity(paymentIntent);
+            }
+        });
+//        confirm
+        Button confirmOrderButton = findViewById(R.id.confirmOrderButton);
+        confirmOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView addressDisplayOrder = findViewById(R.id.addresDisplayOrder);
+                String checkFillAddress = addressDisplayOrder.getText().toString();
+                if (checkFillAddress.equalsIgnoreCase("Please enter your address")){
+                    Toast.makeText(OrderActivity.this, "Please enter you address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String checkPayment = getIntent().getStringExtra("checkPayment");
+                System.out.println("check payment: " + checkPayment);
+                if (checkPayment.equalsIgnoreCase("false")){
+                    Toast.makeText(OrderActivity.this, "Please enter you card number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                System.out.println(cartIdList);
+                OrderApi.retrofit.addOrder()
             }
         });
     }
