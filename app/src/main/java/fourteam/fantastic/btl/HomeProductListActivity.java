@@ -77,6 +77,11 @@ public class HomeProductListActivity extends AppCompatActivity {
                         mviewPager.setCurrentItem(3);
                         drawerLayout.close();
                         break;
+                    case R.id.menuLogout:
+                        drawerLayout.close();
+                        Intent intentLogout = new Intent(HomeProductListActivity.this, GetStartedActivity.class);
+                        startActivity(intentLogout);
+                        break;
                 }
                 return true;
             }
