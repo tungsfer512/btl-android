@@ -337,7 +337,7 @@
             </LinearLayout>
 
         <Button
-            android:id="@+id/confirmButton"
+            android:id="@+id/confirmOrderButton"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
