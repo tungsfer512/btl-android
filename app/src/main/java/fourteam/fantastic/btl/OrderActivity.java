@@ -254,6 +254,7 @@ public class OrderActivity extends AppCompatActivity {
                                 if (response.isSuccessful()){
                                     System.out.println("order ok");
                                     Intent OrderSuccessfullyActivity = new Intent(OrderActivity.this, fourteam.fantastic.btl.OrderSuccessfullyActivity.class);
+                                    OrderSuccessfullyActivity.putExtra("token",token.substring(6));
                                     startActivity(OrderSuccessfullyActivity);
                                     return;
                                 }

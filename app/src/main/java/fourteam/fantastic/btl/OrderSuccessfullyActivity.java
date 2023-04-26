@@ -27,6 +27,8 @@ public class OrderSuccessfullyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent homProductL = new Intent(OrderSuccessfullyActivity.this, HomeProductListActivity.class);
                 homProductL.putExtra("orderList","true");
+                String token = getIntent().getStringExtra("token");
+                homProductL.putExtra("token",token);
                 startActivity(homProductL);
             }
         });

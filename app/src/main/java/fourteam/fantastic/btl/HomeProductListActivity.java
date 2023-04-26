@@ -15,7 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -121,6 +123,15 @@ public class HomeProductListActivity extends AppCompatActivity {
                 }
             }
         });
+        String checkOrderList = getIntent().getStringExtra("orderList");
+        if(checkOrderList !=null && checkOrderList.equalsIgnoreCase("true")) {
+            System.out.println(checkOrderList);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            OrderFragment orderListFragment = new OrderFragment();
+            fragmentTransaction.replace(R.id.menuOrder, orderListFragment);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
