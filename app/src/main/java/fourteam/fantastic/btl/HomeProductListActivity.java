@@ -42,8 +42,6 @@ public class HomeProductListActivity extends AppCompatActivity {
 
         System.out.println("check token: " + token);
 
-
-
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -63,7 +61,6 @@ public class HomeProductListActivity extends AppCompatActivity {
                         drawerLayout.close();
                         break;
                     case R.id.menuWishlist:
-                        Toast.makeText(HomeProductListActivity.this, "menuWishlist", Toast.LENGTH_SHORT).show();
                         mviewPager.setCurrentItem(1);
                         drawerLayout.close();
                         break;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ import fourteam.fantastic.btl.HomeProductListActivity;
 import fourteam.fantastic.btl.ProductDetailActivity;
 import fourteam.fantastic.btl.R;
 import fourteam.fantastic.btl.api.UserApi;
+import fourteam.fantastic.btl.api.WishlistApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +59,45 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.btnAddWishlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Add to WishList");
+                Activity activity = (Activity) holder.itemView.getContext();
+                Intent intent = activity.getIntent();
+                final String token = "token " + intent.getStringExtra("token");
+//                Gửi
+                AddToWishlist(view, token);
+            }
+
+            private void AddToWishlist(View view, String token){
+                UserApi.retrofitUser.getMe(token).enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        Gson gson = new Gson();
+                        String userJson = gson.toJson(response.body());
+                        JsonElement user = new JsonParser().parse(userJson);
+                        System.out.println("userJson " + userJson);
+                        String user_id = user.getAsJsonObject().get("id").getAsString();
+                        int userId = (int) Double.parseDouble(user_id);
+                        WishlistApi.retrofit.addWishlistItem(userId, product.getId()).enqueue(new Callback<Object>() {
+                            @Override
+                            public void onResponse(Call<Object> call, Response<Object> response) {
+                                if(response.isSuccessful()){
+                                    Toast.makeText(view.getContext(), "Add product to wishlist success", Toast.LENGTH_SHORT).show();
+                                    Activity activity = (Activity) holder.itemView.getContext();
+                                    activity.recreate();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Object> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+
+                    }
+                });
             }
         });
 
@@ -100,7 +140,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        if(mList!=null) return mList.size();
+        if(mList != null) return mList.size();
         return 0;
     }
 
