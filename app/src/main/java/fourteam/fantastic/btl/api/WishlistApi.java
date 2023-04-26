@@ -31,6 +31,6 @@ public interface WishlistApi {
     Call<Object> addWishlistItem(@Field("user_id") int user_id, @Field("product_id") int product_id);
 
     @DELETE("/wishlists/{id}")
-    Call<Object> deleteWishlistItem(@Path("id") int product_id);
+    Call<Object> deleteWishlistItem(@Path("id") int wishlist_id);
 
 }

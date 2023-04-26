@@ -226,7 +226,7 @@ public class OrderActivity extends AppCompatActivity {
                     return;
                 }
                 System.out.println(cartIdList);
-                OrderApi.retrofit.addOrder()
+//                OrderApi.retrofit.addOrder()
             }
         });
     }

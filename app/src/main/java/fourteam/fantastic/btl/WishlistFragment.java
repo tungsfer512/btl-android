@@ -25,6 +25,7 @@ import fourteam.fantastic.btl.api.UserApi;
 import fourteam.fantastic.btl.api.WishlistApi;
 import fourteam.fantastic.btl.model.Product;
 import fourteam.fantastic.btl.model.ProductAdapter;
+import fourteam.fantastic.btl.model.Wishlist;
 import fourteam.fantastic.btl.model.WishlistAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,12 +50,12 @@ public class WishlistFragment extends Fragment {
         final String token = "token " + intent.getStringExtra("token");
         System.out.println("token: " + token);
 
-        List<Product> list = new ArrayList<>();
+        List<Wishlist> list = new ArrayList<>();
         getWishlistApi(view, list, token);
         return view;
     }
 
-    private void getWishlistApi(View view, List<Product> list, String token){
+    private void getWishlistApi(View view, List<Wishlist> list, String token){
         UserApi.retrofitUser.getMe(token).enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
@@ -74,15 +75,17 @@ public class WishlistFragment extends Fragment {
                         JsonElement root = new JsonParser().parse(productList);
                         int size = root.getAsJsonObject().get("data").getAsJsonArray().size();
                         for (int i=0;i<size;i++){
-                            JsonObject value1 = root.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject().get("product").getAsJsonObject();
-                            Integer id = (int) Double.parseDouble(value1.get("id").getAsString());
-                            String image = value1.get("images").getAsJsonArray().get(0).getAsJsonObject().get("image").getAsString();
+                            JsonObject value1 = root.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
+                            Integer wishlist_id = (int) Double.parseDouble(value1.get("id").getAsString());
+                            JsonObject product = root.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject().get("product").getAsJsonObject();
+                            Integer product_id = (int) Double.parseDouble(product.get("id").getAsString());
+                            String image = product.get("images").getAsJsonArray().get(0).getAsJsonObject().get("image").getAsString();
                             String replaceString = getResources().getString(R.string.ip_config) + ":" + getResources().getString(R.string.port_product);
                             image = image.replace("product-service:9000", replaceString);
-                            Log.e("Product List " + id + ": ", image);
-                            String title = value1.get("title").getAsString();
-                            String price = "$" + value1.get("price").toString();
-                            list.add(new Product(id, image, title, price));
+                            Log.e("wishlist_id " + wishlist_id + ": ", image);
+                            String title = product.get("title").getAsString();
+                            String price = "$" + product.get("price").toString();
+                            list.add(new Wishlist(wishlist_id,product_id, image, title, price));
 
                         }
                         System.out.println("a "+ list.toString());
