@@ -18,7 +18,7 @@ public interface WishlistApi {
 
     Gson gson = new GsonBuilder().create();
     WishlistApi retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.10.221:9999")
+            .baseUrl("http://192.168.1.14:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(WishlistApi.class);

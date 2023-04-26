@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">btl</string>
-    <string name="ip_config">192.168.10.221</string>
+    <string name="ip_config">192.168.1.14</string>
     <string name="port_gateway">9999</string>
     <string name="port_ai">9111</string>
     <string name="port_cart">9112</string>
