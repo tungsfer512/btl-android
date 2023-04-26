@@ -2,13 +2,16 @@ package fourteam.fantastic.btl;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -32,11 +35,13 @@ public class HomeProductListActivity extends AppCompatActivity {
     private ViewPager mviewPager;
 
     private ImageView imageCart;
-
+    final int GALLERY_REQ_CODE = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_product_list);
+
+
 
         final String token = "token "+ getIntent().getStringExtra("token");
 
@@ -104,29 +109,6 @@ public class HomeProductListActivity extends AppCompatActivity {
             }
         });
 
-//        search
-        SearchView searchView = findViewById(R.id.search_view);
-        if (searchView != null) {
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit (String query){
-                    // Perform the search.
-                    // TODO: Implement the search logic here.
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange (String newText){
-                  // Do nothing.
-                  return false;
-                }
-            });
-        }
-
-        ImageView imageView = findViewById(R.id.image_view);
-        if(imageView != null)
-            imageView.setImageResource(R.drawable.ic_image_search);
-//        end search
 
 //        Go to Cart
         imageCart = (ImageView) findViewById(R.id.imageCart);

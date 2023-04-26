@@ -1,12 +1,18 @@
 package fourteam.fantastic.btl;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.SearchView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +23,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +42,7 @@ public class HomeListFragment extends Fragment {
     private RecyclerView recyclerViewCategory;
     private ProductAdapter adapterProduct;
     private CategoryAdapter adapterCategory;
-
+    final int GALLERY_REQ_CODE = 1000;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +64,81 @@ public class HomeListFragment extends Fragment {
 //        Intent intent = getActivity().getIntent();
 //        String token = intent.getStringExtra("token");
 //        System.out.println("token: " + token);
+
+
+
+//        search
+        SearchView searchView = view.findViewById(R.id.search_view);
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit (String query){
+                    // Perform the search.
+                    // TODO: Implement the search logic here.
+                    System.out.println(query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange (String newText){
+                    // Do nothing.
+                    System.out.println(newText);
+                    return false;
+                }
+            });
+        }
+
+        ImageButton searchImageButton = view.findViewById(R.id.searchImageButton);
+        if(searchImageButton != null){
+            System.out.println("checkkkkkkkkkkk");
+            searchImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                Intent iGallery = new Intent(Intent.ACTION_PICK);
+                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(iGallery, GALLERY_REQ_CODE);
+                    System.out.println("check image buitton");
+
+                }
+            });
+        }
+
+//        @Override
+//        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//            super.onActivityResult(requestCode, resultCode, data);
+//
+//            if (requestCode == GALLERY_REQ_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//                Uri uri = data.getData();
+//
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+////                    mImageView.setImageBitmap(bitmap);
+//
+//                    uploadImage(bitmap);
+//                } catch (IOException e) {
+//                    Log.e(TAG, "Error getting image from gallery", e);
+//                }
+//            }
+//        }
+//
+//        private void uploadImage(Bitmap bitmap) {
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//            byte[] data = baos.toByteArray();
+//
+//            UploadTask uploadTask = mStorageReference.child("images/image.jpg").putBytes(data);
+//            uploadTask.addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.e(TAG, "Error uploading image", e);
+//                }
+//            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Log.d(TAG, "Image uploaded successfully");
+//                }
+//            });
+//        }
 
         return view;
     }
