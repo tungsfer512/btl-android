@@ -258,7 +258,12 @@ public class HomeListFragment extends Fragment {
                 if (response.code() == 200) {
                     resString[0] = response.body().toString();
                     System.out.println("uweiuqyuweiyq" + resString[0]);
-                    Intent intent = new Intent(view.getContext(), )
+                    Intent intent = getActivity().getIntent();
+                    String token = intent.getStringExtra("token");
+                    Intent intent2 = new Intent(view.getContext(), SearchActivity.class);
+                    intent2.putExtra("token", token);
+                    intent2.putExtra("query_from_home", resString[0]);
+                    startActivity(intent2);
                 } else {
                     System.out.println("failed");
                 }
