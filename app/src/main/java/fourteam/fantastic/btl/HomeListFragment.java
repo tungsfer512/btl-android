@@ -27,17 +27,24 @@ import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fourteam.fantastic.btl.api.ProductApi;
+import fourteam.fantastic.btl.api.SearchImageApi;
 import fourteam.fantastic.btl.model.Category;
 import fourteam.fantastic.btl.model.CategoryAdapter;
 import fourteam.fantastic.btl.model.Product;
 import fourteam.fantastic.btl.model.ProductAdapter;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Multipart;
 
 public class HomeListFragment extends Fragment {
     private RecyclerView recyclerViewProduct;
@@ -66,8 +73,6 @@ public class HomeListFragment extends Fragment {
 //        Intent intent = getActivity().getIntent();
 //        String token = intent.getStringExtra("token");
 //        System.out.println("token: " + token);
-
-
 
 //        search
         SearchView searchView = view.findViewById(R.id.search_view);
@@ -116,9 +121,19 @@ public class HomeListFragment extends Fragment {
             Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-//                    mImageView.setImageBitmap(bitmap);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] imageBytes = baos.toByteArray();
+
+                RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+                String string  = dateFormat.format(new Date());
+                System.out.println(string);
+                MultipartBody.Part file = MultipartBody.Part.createFormData("file", string + ".jpg", requestBody);
                 System.out.println("Checkkkkkkk imgae uploaded");
-//                uploadImage(bitmap);
+                String[] searchImageString = {""};
+                searchImageApi(getView(), file, searchImageString);
+                System.out.println("chefsdlaskld" + searchImageString[0]);
             } catch (IOException e) {
                 System.out.println("Error getting image from gallery");
             }
@@ -224,6 +239,27 @@ public class HomeListFragment extends Fragment {
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
                 System.out.println("err: " +t);
+            }
+        });
+    }
+
+    private void searchImageApi(View view, MultipartBody.Part requestBody, String[] resString) {
+        SearchImageApi.retrofit.searchImage(requestBody).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    resString[0] = response.body().toString();
+                    System.out.println("uweiuqyuweiyq" + resString[0]);
+                    Intent intent = new Intent(view.getContext(), )
+                } else {
+                    System.out.println("failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
             }
         });
     }
