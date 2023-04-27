@@ -81,6 +81,18 @@ public class ProductDetailActivity extends AppCompatActivity {
                 CallMoveToCart(token, user_id);
             }
         });
+
+        TextView textView23 = findViewById(R.id.textView23);
+        textView23.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReview = new Intent(ProductDetailActivity.this,ReviewsActivity.class);
+                intentReview.putExtra("product_id",getIntent().getStringExtra("product_id"));
+                intentReview.putExtra("user_id",getIntent().getStringExtra("user_id"));
+
+                startActivity(intentReview);
+            }
+        });
     }
 
     public void CallProductDetailApi(int id){
@@ -176,4 +188,5 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -21,6 +21,7 @@ import com.google.gson.JsonParser;
 import org.w3c.dom.Text;
 
 import java.sql.SQLOutput;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,12 +74,16 @@ public class OrderActivity extends AppCompatActivity {
                 }
 
                 Double priceShipment = 10.0;
-                Double priceTotal = priceSubtotal + priceShipment;
+                DecimalFormat df = new DecimalFormat("#.###");
+                Double result = Double.parseDouble(df.format(priceSubtotal));
+                Double priceTotal = result + priceShipment;
 
                 TextView subtotal = findViewById(R.id.priceSubtotal);
-                subtotal.setText("$" + String.valueOf(priceSubtotal));
+
+                subtotal.setText("$" + String.valueOf(result));
                 TextView ship = findViewById(R.id.priceShipment);
                 ship.setText("$"+String.valueOf(priceShipment));
+
                 TextView total = findViewById(R.id.priceTotal);
                 total.setText("$"+String.valueOf(priceTotal));
                 orderAdapter.notifyDataSetChanged();
@@ -252,9 +257,20 @@ public class OrderActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Object> call, Response<Object> response) {
                                 if (response.isSuccessful()){
+                                    Gson gson = new Gson();
+                                    String res = gson.toJson(response.body());
+                                    System.out.println("order:" + res);
+                                    JsonElement root = new JsonParser().parse(res);
+                                    JsonObject jsonObject = root.getAsJsonObject().get("data").getAsJsonObject();
+                                    JsonObject order = jsonObject.get("order").getAsJsonObject();
+                                    String order_id = order.get("id").getAsString();
+                                    System.out.println(order_id);
+
                                     System.out.println("order ok");
                                     Intent OrderSuccessfullyActivity = new Intent(OrderActivity.this, fourteam.fantastic.btl.OrderSuccessfullyActivity.class);
                                     OrderSuccessfullyActivity.putExtra("token",token.substring(6));
+                                    OrderSuccessfullyActivity.putExtra("user_id",user_id);
+                                    OrderSuccessfullyActivity.putExtra("order_id",order_id);
                                     startActivity(OrderSuccessfullyActivity);
                                     return;
                                 }
