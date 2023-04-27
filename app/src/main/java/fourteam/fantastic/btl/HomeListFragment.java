@@ -77,7 +77,15 @@ public class HomeListFragment extends Fragment {
                 public boolean onQueryTextSubmit (String query){
                     // Perform the search.
                     // TODO: Implement the search logic here.
-                    System.out.println(query);
+                    System.out.println("query_from_home: " + query);
+                    Intent intent = getActivity().getIntent();
+                    String token = intent.getStringExtra("token");
+                    System.out.println("token: " + token);
+                    String query_from_home = query;
+                    Intent intentSearch = new Intent(getActivity(), SearchActivity.class);
+                    intentSearch.putExtra("query_from_home", query);
+                    intentSearch.putExtra("token", token);
+                    startActivity(intentSearch);
                     return false;
                 }
 
@@ -138,7 +146,7 @@ public class HomeListFragment extends Fragment {
     }
 
     private void getProductListApi(View view, List<Product> list){
-        ProductApi.retrofit.getAllProducts().enqueue(new Callback<Object>() {
+        ProductApi.retrofit.getAllProducts(null, null, null, null).enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
 //                I/System.out

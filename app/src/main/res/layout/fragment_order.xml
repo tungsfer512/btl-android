@@ -13,7 +13,7 @@
         android:orientation="vertical">
         <!--        Page Title-->
         <LinearLayout
-            android:id="@+id/pageWishlistTitle"
+            android:id="@+id/pageỎrderlistTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

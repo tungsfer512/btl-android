@@ -1,13 +1,18 @@
 package fourteam.fantastic.btl.api;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ProductApi {
 
@@ -24,7 +29,7 @@ public interface ProductApi {
             .build()
             .create(ProductApi.class);
     @GET("/products")
-    Call<Object> getAllProducts();
+    Call<Object> getAllProducts(@Nullable @Query("categories")ArrayList<Integer> list, @Nullable @Query("search")String search, @Nullable @Query("priceStart")Double priceStart, @Nullable @Query("priceEnd")Double priceEnd );
 
     @GET("/products/{id}")
     Call<Object> getProductDetail(@Path("id") int product_id);
