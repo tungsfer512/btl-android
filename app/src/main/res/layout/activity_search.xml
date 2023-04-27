@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBackground"
+        android:orientation="vertical">
+        <!--        Page Title-->
+        <LinearLayout
+            android:id="@+id/pageSearchTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="Results" />
+            <TextView
+                android:id="@+id/txtSizeSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/grey"
+                android:text="365 items"/>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey"
+                    android:text="Filter by price"/>
+                <EditText
+                    android:id="@+id/txtpriceStart"
+                    android:layout_width="match_parent"
+                    android:inputType="numberDecimal"
+                    android:layout_height="match_parent"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey"
+                    android:hint="Start Price" />
+                <EditText
+                    android:id="@+id/txtpriceEnd"
+                    android:inputType="numberDecimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey"
+                    android:hint="End Price"/>
+                <Button
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/backButton"
+                    android:text="Filter"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!--        End Page Title-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,9 +18,10 @@
     <string name="account_information">Account Information</string>
     <string name="password">Password</string>
     <string name="order">Order</string>
-    <string name="my_cards">My Cards</string>
+    <string name="my_cards">My Card</string>
     <string name="wishlist">Wishlist</string>
     <string name="settings">Settings</string>
+    
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_wishlist_fragment">Hello wishlist fragment</string>
     <string name="hello_order_fragment">Hello order fragment</string>

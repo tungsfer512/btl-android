@@ -1,63 +1,104 @@
 package fourteam.fantastic.btl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyCardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import fourteam.fantastic.btl.api.OrderApi;
+import fourteam.fantastic.btl.api.UserApi;
+import fourteam.fantastic.btl.model.MyCartAdapter;
+import fourteam.fantastic.btl.model.OrderItem;
+import fourteam.fantastic.btl.model.OrderItemAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MyCardFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MyCardFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyCardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyCardFragment newInstance(String param1, String param2) {
-        MyCardFragment fragment = new MyCardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private RecyclerView recyclerView;
+    private MyCartAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_card, container, false);
+        List<OrderItem> list = new ArrayList<>();
+        //  get Intent nhận
+        Intent intent = getActivity().getIntent();
+        System.out.println("Orderlist check");
+        final String token = "token " + intent.getStringExtra("token");
+        System.out.println("token: " + token);
+
+        CallGetOrderList(view, list, token);
+        return view;
+    }
+
+    private void CallGetOrderList(View view, List<OrderItem> list, String token){
+        UserApi.retrofitUser.getMe(token).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Gson gson = new Gson();
+                String userJson = gson.toJson(response.body());
+                JsonElement user = new JsonParser().parse(userJson);
+                System.out.println("userJson " + userJson);
+                String user_id = user.getAsJsonObject().get("id").getAsString();
+                int userId = (int) Double.parseDouble(user_id);
+                OrderApi.retrofit.getAllOrders(userId).enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+//                I/System.out
+                        Gson gson = new Gson();
+                        list.clear();
+                        String productList = gson.toJson(response.body());
+                        System.out.println("OrderApi: " + productList);
+                        JsonElement root = new JsonParser().parse(productList);
+                        int size = root.getAsJsonObject().get("data").getAsJsonArray().size();
+                        for (int i=0;i<size;i++){
+                            JsonObject orderItem = root.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
+                            System.out.println("Order Item " + i + ":" + orderItem.toString());
+                            Integer id = (int) Double.parseDouble(orderItem.get("id").getAsString());
+                            String time = orderItem.get("shipment").getAsJsonObject().get("created").getAsString();
+                            String total = "- $" + orderItem.get("payment").getAsJsonObject().get("amount").getAsString();
+                            list.add(new OrderItem(id, time, total, "", ""));
+                        }
+                        System.out.println("a "+ list.toString());
+                        // Find recycle view
+                        recyclerView = view.findViewById(R.id.rMyCard);
+
+                        // Create a new layout manager for the RecyclerView
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                        recyclerView.setLayoutManager(layoutManager);
+                        // Create a new adapter for the RecyclerView
+                        adapter = new MyCartAdapter(list);
+                        recyclerView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        System.out.println("err: " +t);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+
     }
 }
