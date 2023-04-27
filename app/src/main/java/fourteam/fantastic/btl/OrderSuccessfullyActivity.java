@@ -25,11 +25,25 @@ public class OrderSuccessfullyActivity extends AppCompatActivity {
         gotoOrdesSuccessfullyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homProductL = new Intent(OrderSuccessfullyActivity.this, HomeProductListActivity.class);
-                homProductL.putExtra("orderList","true");
-                startActivity(homProductL);
+                Intent writeReview = new Intent(OrderSuccessfullyActivity.this, WriteReviewActivity.class);
+//                writeReview.putExtra("orderList","true");
+                String token = getIntent().getStringExtra("token");
+                writeReview.putExtra("token",token);
+                writeReview.putExtra("user_id",getIntent().getStringExtra("user_id"));
+                writeReview.putExtra("order_id",getIntent().getStringExtra("order_id"));
+
+                startActivity(writeReview);
             }
         });
-
+        Button continueShopping = findViewById(R.id.continueShopping);
+        continueShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivity = new Intent(OrderSuccessfullyActivity.this,HomeProductListActivity.class);
+                String token = getIntent().getStringExtra("token");
+                mainActivity.putExtra("token",token);
+                startActivity(mainActivity);
+            }
+        });
     }
 }

@@ -80,7 +80,7 @@
             android:inputType="textCapSentences"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Go to orders"
+            android:text="Write review"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:backgroundTint="@color/backButton"
