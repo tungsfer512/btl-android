@@ -92,7 +92,7 @@ public class OrderFragment extends Fragment {
                             String address = orderItem.get("address").getAsJsonObject().get("address").getAsString() + ", " +
                                     orderItem.get("address").getAsJsonObject().get("town").getAsString() + ", " +
                                     orderItem.get("address").getAsJsonObject().get("city").getAsString();
-                            String total = "$" + orderItem.get("payment").getAsJsonObject().get("amount").getAsString();
+                            String total = "" + orderItem.get("payment").getAsJsonObject().get("amount").getAsString() + ".000 đ";
                             list.add(new OrderItem(id, products, status, address, total));
                         }
                         System.out.println("a "+ list.toString());

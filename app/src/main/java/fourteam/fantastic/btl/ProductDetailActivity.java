@@ -121,12 +121,12 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Glide.with(ProductDetailActivity.this).load(product_image2_url.replace("product-service:9000", replaceString)).into(imageProduct5);
 
                 txtProductName.setText(product.get("title").getAsString());
-                txtProductPrice.setText("$" + product.get("price").getAsString());
+                txtProductPrice.setText("" + product.get("price").getAsString() + ".000 đ");
                 txtProductDescription.setText(product.get("description").getAsString());
 
                 double price = Double.parseDouble(product.get("price").getAsString());
                 double vat = price / 10 + price;
-                txtProductVat.setText("$" + String.format("%.2f", vat));
+                txtProductVat.setText("" + String.format("%.3f", vat) + ".000 đ");
 
                 String categories = "";
                 int categoriesSize = product.get("categories").getAsJsonArray().size();

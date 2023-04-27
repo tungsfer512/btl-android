@@ -80,12 +80,12 @@ public class OrderActivity extends AppCompatActivity {
 
                 TextView subtotal = findViewById(R.id.priceSubtotal);
 
-                subtotal.setText("$" + String.valueOf(result));
+                subtotal.setText("" + String.valueOf(result) + ".000 đ");
                 TextView ship = findViewById(R.id.priceShipment);
-                ship.setText("$"+String.valueOf(priceShipment));
+                ship.setText(""+String.valueOf(priceShipment) + ".000 đ");
 
                 TextView total = findViewById(R.id.priceTotal);
-                total.setText("$"+String.valueOf(priceTotal));
+                total.setText(""+String.valueOf(priceTotal) + ".000 đ");
                 orderAdapter.notifyDataSetChanged();
             }
 

@@ -71,7 +71,7 @@ public class MyCardFragment extends Fragment {
                             System.out.println("Order Item " + i + ":" + orderItem.toString());
                             Integer id = (int) Double.parseDouble(orderItem.get("id").getAsString());
                             String time = orderItem.get("shipment").getAsJsonObject().get("created").getAsString();
-                            String total = "- $" + orderItem.get("payment").getAsJsonObject().get("amount").getAsString();
+                            String total = "- " + orderItem.get("payment").getAsJsonObject().get("amount").getAsString() + ".000 đ";
                             list.add(new OrderItem(id, time, total, "", ""));
                         }
                         System.out.println("a "+ list.toString());

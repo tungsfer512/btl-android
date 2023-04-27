@@ -84,7 +84,7 @@ public class WishlistFragment extends Fragment {
                             image = image.replace("product-service:9000", replaceString);
                             Log.e("wishlist_id " + wishlist_id + ": ", image);
                             String title = product.get("title").getAsString();
-                            String price = "$" + product.get("price").toString();
+                            String price = "" + product.get("price").toString() + ".000 đ";
                             list.add(new Wishlist(wishlist_id,product_id, image, title, price));
 
                         }

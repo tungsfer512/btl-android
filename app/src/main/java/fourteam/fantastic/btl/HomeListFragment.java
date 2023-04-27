@@ -150,13 +150,13 @@ public class HomeListFragment extends Fragment {
 
     private List<Product> getLists(){
         List<Product> list = new ArrayList<>();
-        list.add(new Product(1,"", "Product 1", "$100"));
-        list.add(new Product(2,"", "Product 2", "$200"));
-        list.add(new Product(3,"", "Product 3", "$400"));
-        list.add(new Product(4,"", "Product 4", "$300"));
-        list.add(new Product(5,"", "Product 5", "$100"));
-        list.add(new Product(6,"", "Product 6", "$600"));
-        list.add(new Product(7,"", "Product 7", "$300"));
+        list.add(new Product(1,"", "Product 1", "100" + ".000 đ"));
+        list.add(new Product(2,"", "Product 2", "200" + ".000 đ"));
+        list.add(new Product(3,"", "Product 3", "400" + ".000 đ"));
+        list.add(new Product(4,"", "Product 4", "300" + ".000 đ"));
+        list.add(new Product(5,"", "Product 5", "100" + ".000 đ"));
+        list.add(new Product(6,"", "Product 6", "600" + ".000 đ"));
+        list.add(new Product(7,"", "Product 7", "300" + ".000 đ"));
         return list;
     }
 
@@ -179,7 +179,7 @@ public class HomeListFragment extends Fragment {
                     image = image.replace("product-service:9000", replaceString);
 //                    Log.e("Product List " + id + ": ", image);
                     String title = value1.get("title").getAsString();
-                    String price = "$" + value1.get("price").toString();
+                    String price = value1.get("price").toString() + ".000 đ";
                     list.add(new Product(id, image, title, price));
 
                 }

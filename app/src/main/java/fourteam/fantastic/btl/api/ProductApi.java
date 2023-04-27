@@ -18,13 +18,13 @@ public interface ProductApi {
 
     Gson gson = new GsonBuilder().create();
     ProductApi retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.14:9999")
+            .baseUrl("http://10.20.8.119:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ProductApi.class);
 
     ProductApi retrofitCategory = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.14:9116")
+            .baseUrl("http://10.20.8.119:9116")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ProductApi.class);

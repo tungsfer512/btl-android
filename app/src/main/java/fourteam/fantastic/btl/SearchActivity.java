@@ -107,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
                     image = image.replace("product-service:9000", replaceString);
 //                    Log.e("Product List " + id + ": ", image);
                     String title = value1.get("title").getAsString();
-                    String price = "$" + value1.get("price").toString();
+                    String price = "" + value1.get("price").toString() + ".000 đ";
                     list.add(new Product(id, image, title, price));
 
                 }
@@ -155,7 +155,7 @@ public class SearchActivity extends AppCompatActivity {
                     image = image.replace("product-service:9000", replaceString);
 //                    Log.e("Product List " + id + ": ", image);
                     String title = value1.get("title").getAsString();
-                    String price = "$" + value1.get("price").toString();
+                    String price = "" + value1.get("price").toString() + ".000 đ";
                     list.add(new Product(id, image, title, price));
 
                 }
@@ -203,7 +203,7 @@ public class SearchActivity extends AppCompatActivity {
                     image = image.replace("product-service:9000", replaceString);
 //                    Log.e("Product List " + id + ": ", image);
                     String title = value1.get("title").getAsString();
-                    String price = "$" + value1.get("price").toString();
+                    String price = "" + value1.get("price").toString() + ".000 đ";
                     list.add(new Product(id, image, title, price));
 
                 }

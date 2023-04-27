@@ -15,7 +15,7 @@ import retrofit2.http.Part;
 public interface SearchImageApi {
     Gson gson = new GsonBuilder().create();
     SearchImageApi retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.14:9111")
+            .baseUrl("http://10.20.8.119:9111")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(SearchImageApi.class);

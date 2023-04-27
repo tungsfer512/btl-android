@@ -17,13 +17,13 @@ import retrofit2.http.Query;
 public interface CommentApi {
     Gson gson = new GsonBuilder().create();
     CommentApi retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.14:9999")
+            .baseUrl("http://10.20.8.119:9999")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(CommentApi.class);
 
     CommentApi retrofitComment= new Retrofit.Builder()
-            .baseUrl("http://192.168.1.14:9113")
+            .baseUrl("http://10.20.8.119:9113")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(CommentApi.class);
